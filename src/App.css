@@ -23,8 +23,8 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
-  width: calc(100vw - 48px);
-  max-width: 1400px;
+  width: calc(100vw - 96px);
+  max-width: 1200px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -302,8 +302,8 @@
 }
 
 .about-inner {
-  width: calc(100vw - 48px);
-  max-width: 1400px;
+  width: calc(100vw - 96px);
+  max-width: 1200px;
   text-align: left;
 }
 
