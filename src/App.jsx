@@ -84,15 +84,15 @@ function App() {
   // Active nav link on scroll
   useEffect(() => {
     const sections = ['hero', 'about', 'works', 'timeline', 'skills', 'contact']
-    const sectionToHref = { hero: '#home', about: '#about', works: '#works', timeline: '#timeline', skills: '#skills', contact: '#contact' }
+    const sectionToNav = { hero: 'home', about: 'about', works: 'works', timeline: 'timeline', skills: 'skills', contact: 'contact' }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const href = sectionToHref[entry.target.id]
+            const section = sectionToNav[entry.target.id]
             document.querySelectorAll('#navbar ul a').forEach((a) => {
-              a.classList.toggle('active', a.getAttribute('href') === href)
+              a.classList.toggle('active', a.dataset.section === section)
             })
           }
         })
@@ -112,14 +112,11 @@ function App() {
     <>
       <div id="home" style={{ position: 'absolute', top: 0 }} />
       <nav id="navbar">
-        <a href="#home" className="nav-logo">MLN.</a>
+        <a href="/" className="nav-logo" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>MLN.</a>
         <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#works">Works</a></li>
-          <li><a href="#timeline">Timeline</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#contact">Contact</a></li>
+          {[['home', 'Home'], ['about', 'About'], ['works', 'Works'], ['timeline', 'Timeline'], ['skills', 'Skills'], ['contact', 'Contact']].map(([id, label]) => (
+            <li key={id}><a href="/" data-section={id} onClick={e => { e.preventDefault(); document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }) }}>{label}</a></li>
+          ))}
         </ul>
         <button
           className="theme-toggle"
