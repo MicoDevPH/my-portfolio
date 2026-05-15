@@ -3,6 +3,34 @@ import './App.css'
 import silhouette from './assets/Mico_dark.png'
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true)
+  const [fadeOut, setFadeOut] = useState(false)
+  const [flyStyle, setFlyStyle] = useState(null)
+  const [heroReady, setHeroReady] = useState(false)
+
+  const navLogoRef = useRef(null)
+  const loadingLogoRef = useRef(null)
+
+  useEffect(() => {
+    const minDisplay = new Promise(resolve => setTimeout(resolve, 2600))
+    const fontsReady = document.fonts.ready
+    Promise.all([minDisplay, fontsReady]).then(() => {
+      // Calculate FLIP: loading logo center → navbar logo center
+      if (navLogoRef.current && loadingLogoRef.current) {
+        const from = loadingLogoRef.current.getBoundingClientRect()
+        const to = navLogoRef.current.getBoundingClientRect()
+        const dx = (to.left + to.width / 2) - (from.left + from.width / 2)
+        const dy = (to.top + to.height / 2) - (from.top + from.height / 2)
+        const scale = to.height / from.height
+        setFlyStyle({ dx, dy, scale })
+      }
+      setFadeOut(true)
+      // Hero enters after logo lands (~1100ms fly duration)
+      setTimeout(() => setHeroReady(true), 1120)
+      setTimeout(() => setIsLoading(false), 1250)
+    })
+  }, [])
+
   const [isDark, setIsDark] = useState(() => {
     const stored = localStorage.getItem('theme')
     return stored ? stored === 'dark' : true
@@ -110,9 +138,31 @@ function App() {
 
   return (
     <>
+      {isLoading && (
+        <div className={`loading-screen${fadeOut ? ' fade-out' : ''}`}>
+          <span
+            ref={loadingLogoRef}
+            className={`loading-logo${flyStyle ? ' flying' : ''}`}
+            style={flyStyle ? {
+              '--fly-x': `${flyStyle.dx}px`,
+              '--fly-y': `${flyStyle.dy}px`,
+              '--fly-scale': flyStyle.scale,
+            } : undefined}
+          >MLN.</span>
+          <div className="loading-dots">
+            <span /><span /><span />
+          </div>
+        </div>
+      )}
       <div id="home" style={{ position: 'absolute', top: 0 }} />
       <nav id="navbar">
-        <a href="/" className="nav-logo" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>MLN.</a>
+        <a
+          href="/"
+          className="nav-logo"
+          ref={navLogoRef}
+          style={{ opacity: isLoading ? 0 : 1 }}
+          onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+        >MLN.</a>
         <ul>
           {[['home', 'Home'], ['about', 'About'], ['works', 'Works'], ['timeline', 'Timeline'], ['skills', 'Skills'], ['contact', 'Contact']].map(([id, label]) => (
             <li key={id}><a href="/" data-section={id} onClick={e => { e.preventDefault(); document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }) }}>{label}</a></li>
@@ -140,14 +190,20 @@ function App() {
         <div className="hero-sticky">
           <div className="hero-name">
             <div ref={micoWrapRef} className="hero-name-row">
-              <span ref={micoRef}>MICO</span>
+              <div className={`hero-enter${heroReady ? ' hero-enter-left' : ''}`}>
+                <span ref={micoRef}>MICO</span>
+              </div>
             </div>
             <div ref={nakaseWrapRef} className="hero-name-row">
-              <span ref={nakaseRef}>NAKASE</span>
+              <div className={`hero-enter${heroReady ? ' hero-enter-right' : ''}`}>
+                <span ref={nakaseRef}>NAKASE</span>
+              </div>
             </div>
           </div>
           <div ref={silhouetteRef} className="hero-silhouette">
-            <img src={silhouette} alt="" />
+            <div className={`hero-enter${heroReady ? ' hero-enter-pop' : ''}`}>
+              <img src={silhouette} alt="" />
+            </div>
           </div>
         </div>
       </section>
