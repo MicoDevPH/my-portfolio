@@ -1,8 +1,18 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import silhouette from './assets/Mico_dark.png'
 
 function App() {
+  const [isDark, setIsDark] = useState(() => {
+    const stored = localStorage.getItem('theme')
+    return stored ? stored === 'dark' : true
+  })
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('light', !isDark)
+    localStorage.setItem('theme', isDark ? 'dark' : 'light')
+  }, [isDark])
+
   const micoRef = useRef(null)
   const nakaseRef = useRef(null)
   const micoWrapRef = useRef(null)
@@ -111,6 +121,22 @@ function App() {
           <li><a href="#skills">Skills</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
+        <button
+          className="theme-toggle"
+          onClick={() => setIsDark(d => !d)}
+          aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+        >
+          {isDark ? (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+            </svg>
+          ) : (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          )}
+        </button>
       </nav>
 
       <section id="hero">
