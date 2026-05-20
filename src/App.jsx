@@ -45,6 +45,53 @@ function App() {
   const prevSlide = () => setCarouselIndex(i => (i - 1 + programmingWorks.length) % programmingWorks.length)
   const nextSlide = () => setCarouselIndex(i => (i + 1) % programmingWorks.length)
 
+  const DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons'
+  const frontendTools = [
+    { name: 'HTML5', icon: `${DEVICON}/html5/html5-original.svg` },
+    { name: 'CSS3', icon: `${DEVICON}/css3/css3-original.svg` },
+    { name: 'Tailwind', icon: `${DEVICON}/tailwindcss/tailwindcss-original.svg` },
+    { name: 'Bootstrap', icon: `${DEVICON}/bootstrap/bootstrap-original.svg` },
+    { name: 'React', icon: `${DEVICON}/react/react-original.svg` },
+    { name: 'JavaScript', icon: `${DEVICON}/javascript/javascript-original.svg` },
+    { name: 'TypeScript', icon: `${DEVICON}/typescript/typescript-original.svg` },
+  ]
+  const backendTools = [
+    { name: 'Java', icon: `${DEVICON}/java/java-original.svg` },
+    { name: 'C#', icon: `${DEVICON}/csharp/csharp-original.svg` },
+    { name: 'PHP', icon: `${DEVICON}/php/php-original.svg` },
+    { name: 'Python', icon: `${DEVICON}/python/python-original.svg` },
+    { name: 'Laravel', icon: `${DEVICON}/laravel/laravel-original.svg` },
+    { name: 'Node.js', icon: `${DEVICON}/nodejs/nodejs-original.svg` },
+    { name: 'FastAPI', icon: `${DEVICON}/fastapi/fastapi-original.svg` },
+    { name: 'REST API', icon: `${DEVICON}/openapi/openapi-original.svg` },
+    { name: 'MySQL', icon: `${DEVICON}/mysql/mysql-original.svg` },
+    { name: 'PostgreSQL', icon: `${DEVICON}/postgresql/postgresql-original.svg` },
+    { name: 'MongoDB', icon: `${DEVICON}/mongodb/mongodb-original.svg` },
+  ]
+  const toolsAndVc = [
+    { name: 'GitHub', icon: `${DEVICON}/github/github-original.svg` },
+    { name: 'Git', icon: `${DEVICON}/git/git-original.svg` },
+    { name: 'Postman', icon: `${DEVICON}/postman/postman-original.svg` },
+    { name: 'SonarQube', icon: `${DEVICON}/sonarqube/sonarqube-original.svg` },
+    { name: 'Composer', icon: `${DEVICON}/composer/composer-original.svg` },
+    { name: 'npm', icon: `${DEVICON}/npm/npm-original-wordmark.svg` },
+    { name: 'VS Code', icon: `${DEVICON}/vscode/vscode-original.svg` },
+    { name: 'Eclipse', icon: `${DEVICON}/eclipse/eclipse-original.svg` },
+  ]
+
+  const TickerRow = ({ tools, reverse }) => (
+    <div className="ticker">
+      <div className={`ticker-track${reverse ? ' ticker-reverse' : ''}`}>
+        {[...tools, ...tools].map((tool, i) => (
+          <div key={i} className="ticker-item">
+            <img src={tool.icon} alt={tool.name} />
+            <span>{tool.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+
   const [isDark, setIsDark] = useState(() => {
     const stored = localStorage.getItem('theme')
     return stored ? stored === 'dark' : true
@@ -128,26 +175,22 @@ function App() {
     const sections = ['hero', 'about', 'works', 'timeline', 'skills', 'contact']
     const sectionToNav = { hero: 'home', about: 'about', works: 'works', timeline: 'timeline', skills: 'skills', contact: 'contact' }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const section = sectionToNav[entry.target.id]
-            document.querySelectorAll('#navbar ul a').forEach((a) => {
-              a.classList.toggle('active', a.dataset.section === section)
-            })
-          }
-        })
-      },
-      { threshold: 0.5 }
-    )
+    const onScroll = () => {
+      let current = 'home'
+      for (const id of sections) {
+        const el = document.getElementById(id)
+        if (el && el.getBoundingClientRect().top <= 150) {
+          current = sectionToNav[id]
+        }
+      }
+      document.querySelectorAll('#navbar a[data-section]').forEach((a) => {
+        a.classList.toggle('active', a.dataset.section === current)
+      })
+    }
 
-    sections.forEach((id) => {
-      const el = document.getElementById(id)
-      if (el) observer.observe(el)
-    })
-
-    return () => observer.disconnect()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   return (
@@ -253,33 +296,29 @@ function App() {
         <div className="about-inner">
           <p className="about-label">About Me</p>
           <h2 className="about-heading">
-            I Build<br />
-            <em>Digital</em><br />
-            Experiences.
+            Hi, I'm<br />
+            <em>Mico Nakase</em>
           </h2>
           <div className="about-content">
             <p>
-              I'm Mico L. Nakase — a developer and creative technologist passionate about crafting
-              fast, beautiful, and purposeful digital products. With a sharp eye for design and a
-              deep love for clean code, I bridge the gap between ideas and execution.
+              I'm a junior software engineer and music producer who enjoys building
+              things that look good and work well. I like writing clean code just as
+              much as I like producing beats — always learning, always creating.
             </p>
             <p>
-              Currently building products at <strong>Prosperna</strong>, empowering Filipino businesses
-              to thrive in the digital landscape.
+              Currently a Software Engineering Intern at <strong>Prosperna
+              Philippines</strong> and the Producer &amp; External Vice President
+              at <strong>Truchorus Performance Company</strong>.
             </p>
           </div>
           <div className="about-stats">
             <div className="about-stat">
-              <span>5+</span>
-              <p>Years Experience</p>
-            </div>
-            <div className="about-stat">
-              <span>30+</span>
+              <span>2</span>
               <p>Projects Built</p>
             </div>
             <div className="about-stat">
-              <span>10+</span>
-              <p>Happy Clients</p>
+              <span>6</span>
+              <p>Music Produced</p>
             </div>
           </div>
         </div>
@@ -342,6 +381,29 @@ function App() {
               </button>
             </div>
           )}
+        </div>
+      </section>
+
+      <section id="skills">
+        <div className="skills-inner">
+          <h2 className="skills-heading">
+            Tech <em>Stack</em>
+          </h2>
+          <p className="skills-description">
+            Tools and technologies I work with.
+          </p>
+          <div className="skills-category">
+            <p className="skills-label">Frontend</p>
+            <TickerRow tools={frontendTools} />
+          </div>
+          <div className="skills-category">
+            <p className="skills-label">Backend</p>
+            <TickerRow tools={backendTools} reverse />
+          </div>
+          <div className="skills-category">
+            <p className="skills-label">Tools & Version Control</p>
+            <TickerRow tools={toolsAndVc} />
+          </div>
         </div>
       </section>
     </>
