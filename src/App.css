@@ -797,6 +797,204 @@
   }
 }
 
+#timeline {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.timeline-inner {
+  width: calc(100vw - 96px);
+  max-width: 1200px;
+  text-align: left;
+}
+
+.timeline-heading {
+  font-family: 'Druk', sans-serif;
+  font-weight: 900;
+  font-size: clamp(52px, 9vw, 130px);
+  line-height: 0.88;
+  color: var(--text-h);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin: 0 0 24px;
+
+  em {
+    color: var(--accent);
+    font-style: normal;
+  }
+}
+
+.timeline-description {
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.75;
+  color: var(--text);
+  max-width: 620px;
+  margin: 0 0 48px;
+}
+
+.timeline-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 48px;
+}
+
+.timeline-tab {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 10px 28px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--social-bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  &.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+}
+
+.timeline-scroll {
+  position: relative;
+  max-height: 480px;
+  overflow: hidden;
+}
+
+.timeline-track {
+  position: relative;
+  max-height: 480px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0;
+  background-image: linear-gradient(to right, transparent calc(50% - 1px), var(--border) calc(50% - 1px), var(--border) calc(50% + 1px), transparent calc(50% + 1px));
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.timeline-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  z-index: 5;
+  pointer-events: none;
+  will-change: width;
+}
+
+.timeline-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+  z-index: 3;
+}
+
+.timeline-entry {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 0;
+  z-index: 1;
+
+  &[data-side="left"] {
+    justify-content: flex-start;
+
+    .timeline-content {
+      transform: translateX(24px);
+    }
+  }
+
+  &[data-side="right"] {
+    justify-content: flex-end;
+
+    .timeline-content {
+      transform: translateX(-24px);
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--bg);
+    top: 16px;
+    z-index: 2;
+  }
+}
+
+.timeline-content {
+  width: 45%;
+  max-width: 400px;
+  padding: 14px 18px;
+  background: var(--code-bg);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-sizing: border-box;
+
+  h3 {
+    font-family: 'Druk', sans-serif;
+    font-weight: 500;
+    font-size: clamp(15px, 1.6vw, 20px);
+    color: var(--text-h);
+    margin: 0 0 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  p {
+    font-size: clamp(12px, 1vw, 14px);
+    color: var(--text);
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+
+.timeline-date {
+  display: inline-block;
+  font-size: clamp(10px, 0.9vw, 12px);
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+
+.timeline-empty {
+  color: var(--text) !important;
+  font-style: italic;
+  opacity: 0.5;
+}
+
 #skills {
   width: 100%;
   padding: 120px 0;
@@ -983,12 +1181,14 @@ html.light .mobile-menu a.active {
 
 @media (max-width: 1024px) {
   #about,
-  #works {
+  #works,
+  #timeline {
     padding: 80px 0;
   }
 
   .about-heading,
-  .works-heading {
+  .works-heading,
+  .timeline-heading {
     margin-bottom: 36px;
   }
 
@@ -1015,22 +1215,42 @@ html.light .mobile-menu a.active {
   .carousel-track {
     max-width: 500px;
   }
+
+  .timeline-track {
+    background-image: linear-gradient(to right, transparent 23px, var(--border) 23px, var(--border) 25px, transparent 25px);
+  }
+
+  .timeline-entry[data-side="right"] {
+    justify-content: flex-start;
+  }
+
+  .timeline-entry::before {
+    left: 24px;
+  }
+
+  .timeline-content {
+    width: calc(100% - 60px);
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 640px) {
   #about,
-  #works {
+  #works,
+  #timeline {
     padding: 60px 0;
     min-height: auto;
   }
 
   .about-inner,
-  .works-inner {
+  .works-inner,
+  .timeline-inner {
     width: calc(100vw - 32px);
   }
 
   .about-heading,
-  .works-heading {
+  .works-heading,
+  .timeline-heading {
     margin-bottom: 24px;
   }
 
@@ -1042,11 +1262,13 @@ html.light .mobile-menu a.active {
     gap: 32px;
   }
 
-  .works-description {
+  .works-description,
+  .timeline-description {
     margin-bottom: 32px;
   }
 
-  .works-tab {
+  .works-tab,
+  .timeline-tab {
     padding: 8px 20px;
     font-size: 13px;
   }
@@ -1100,16 +1322,53 @@ html.light .mobile-menu a.active {
   .hero-silhouette img {
     height: 65vh;
   }
+
+  .timeline-scroll {
+    max-height: 360px;
+  }
+
+  .timeline-track {
+    max-height: 360px;
+  }
+
+  .timeline-content {
+    width: calc(100% - 52px);
+    padding: 12px 14px;
+  }
+
+  .timeline-date {
+    font-size: 10px;
+    padding: 2px 8px;
+    margin-bottom: 6px;
+  }
+
+  .timeline-entry {
+    padding: 8px 0;
+  }
 }
 
 @media (max-width: 380px) {
   .about-inner,
-  .works-inner {
+  .works-inner,
+  .timeline-inner {
     width: calc(100vw - 20px);
   }
 
   .carousel-track {
     max-width: 200px;
+  }
+
+  .timeline-content {
+    width: calc(100% - 44px);
+    padding: 10px 12px;
+  }
+
+  .timeline-scroll {
+    max-height: 300px;
+  }
+
+  .timeline-track {
+    max-height: 300px;
   }
 }
 

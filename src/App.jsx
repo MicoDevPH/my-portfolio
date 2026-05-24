@@ -50,7 +50,10 @@ function App() {
 
   const [menuOpen, setMenuOpen] = useState(false)
   const [worksTab, setWorksTab] = useState('programming')
+  const [timelineTab, setTimelineTab] = useState('education')
   const [carouselIndex, setCarouselIndex] = useState(0)
+  const timelineTrackRef = useRef(null)
+  const timelineProgressRef = useRef(null)
 
   const programmingWorks = [
     { img: kevinsExpress, title: "Kevin's Express Studio", desc: 'Full-stack booking platform for music studio scheduling and management' },
@@ -59,6 +62,14 @@ function App() {
 
   const prevSlide = () => setCarouselIndex(i => (i - 1 + programmingWorks.length) % programmingWorks.length)
   const nextSlide = () => setCarouselIndex(i => (i + 1) % programmingWorks.length)
+
+  const onTimelineScroll = () => {
+    const el = timelineTrackRef.current
+    const bar = timelineProgressRef.current
+    if (!el || !bar) return
+    const progress = el.scrollTop / (el.scrollHeight - el.clientHeight)
+    bar.style.width = `${Math.min(progress, 1) * 100}%`
+  }
 
   const DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons'
   const frontendTools = [
@@ -388,6 +399,183 @@ function App() {
               </button>
             </div>
           )}
+        </div>
+      </section>
+
+      <section id="timeline">
+        <div className="timeline-inner">
+          <h2 className="timeline-heading">
+            My <em>Journey</em>
+          </h2>
+          <p className="timeline-description">
+            Education, experience, and leadership.
+          </p>
+          <div className="timeline-tabs">
+            <button
+              className={`timeline-tab${timelineTab === 'education' ? ' active' : ''}`}
+              onClick={() => { setTimelineTab('education'); if (timelineProgressRef.current) timelineProgressRef.current.style.width = '0%' }}
+            >
+              Education
+            </button>
+            <button
+              className={`timeline-tab${timelineTab === 'experience' ? ' active' : ''}`}
+              onClick={() => { setTimelineTab('experience'); if (timelineProgressRef.current) timelineProgressRef.current.style.width = '0%' }}
+            >
+              Experience
+            </button>
+            <button
+              className={`timeline-tab${timelineTab === 'leadership' ? ' active' : ''}`}
+              onClick={() => { setTimelineTab('leadership'); if (timelineProgressRef.current) timelineProgressRef.current.style.width = '0%' }}
+            >
+              Leadership
+            </button>
+          </div>
+          <div className="timeline-scroll">
+          <div className="timeline-progress" ref={timelineProgressRef} />
+          <div className="timeline-track" ref={timelineTrackRef} onScroll={onTimelineScroll}>
+
+            {timelineTab === 'education' && (
+              <>
+                <div className="timeline-entry" data-side="left">
+                  <div className="timeline-content">
+                    <span className="timeline-date">2022 – Present</span>
+                    <h3>BS in Information Technology</h3>
+                    <p>Saint Francis Institute of Computer Studies</p>
+                  </div>
+                </div>
+                <div className="timeline-entry" data-side="right">
+                  <div className="timeline-content">
+                    <span className="timeline-date">2020 – 2022</span>
+                    <h3>STEM (Senior High School)</h3>
+                    <p>San Francisco De Sales School</p>
+                  </div>
+                </div>
+                <div className="timeline-entry" data-side="left">
+                  <div className="timeline-content">
+                    <span className="timeline-date">2016 – 2020</span>
+                    <h3>Junior High School</h3>
+                    <p>Adelina I National High School</p>
+                  </div>
+                </div>
+                <div className="timeline-entry" data-side="right">
+                  <div className="timeline-content">
+                    <span className="timeline-date">2014 – 2016</span>
+                    <h3>Elementary</h3>
+                    <p>San Pedro Central Elementary School</p>
+                  </div>
+                </div>
+                <div className="timeline-entry" data-side="left">
+                  <div className="timeline-content">
+                    <span className="timeline-date">2010 – 2014</span>
+                    <h3>Elementary</h3>
+                    <p>Adonai Christian Academy of Muntinlupa</p>
+                  </div>
+                </div>
+                <div className="timeline-entry" data-side="right">
+                  <div className="timeline-content">
+                    <span className="timeline-date">2009 – 2010</span>
+                    <h3>Kindergarten</h3>
+                    <p>Laguna Northwestern College</p>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {timelineTab === 'experience' && (
+              <div className="timeline-entry" data-side="left">
+                <div className="timeline-content">
+                  <span className="timeline-date">Feb 2026 – Present</span>
+                  <h3>Full Stack & Generative AI Developer Intern</h3>
+                  <p>Prosperna Philippines</p>
+                </div>
+              </div>
+            )}
+
+            {timelineTab === 'leadership' && (
+              <>
+                <div className="timeline-entry" data-side="left">
+                  <div className="timeline-content">
+                    <span className="timeline-date">2024 – 2026</span>
+                    <h3>SBO President</h3>
+                    <p>Saint Francis Institute of Computer Studies</p>
+                  </div>
+                </div>
+                <div className="timeline-entry" data-side="right">
+                  <div className="timeline-content">
+                    <span className="timeline-date">2024 – Present</span>
+                    <h3>External Vice President</h3>
+                    <p>Truchorus Performance Company</p>
+                  </div>
+                </div>
+                <div className="timeline-entry" data-side="left">
+                  <div className="timeline-content">
+                    <span className="timeline-date">2023 – 2024</span>
+                    <h3>SBO Vice President</h3>
+                    <p>Saint Francis Institute of Computer Studies</p>
+                  </div>
+                </div>
+                <div className="timeline-entry" data-side="right">
+                  <div className="timeline-content">
+                    <span className="timeline-date">2022 – 2023</span>
+                    <h3>President</h3>
+                    <p>Cascop Compound Youth Organization</p>
+                  </div>
+                </div>
+                <div className="timeline-entry" data-side="left">
+                  <div className="timeline-content">
+                    <span className="timeline-date">2021</span>
+                    <h3>SSC Business Manager</h3>
+                    <p>San Francisco De Sales School</p>
+                  </div>
+                </div>
+                <div className="timeline-entry" data-side="right">
+                  <div className="timeline-content">
+                    <span className="timeline-date">2019</span>
+                    <h3>SSG Federation Peace Officer</h3>
+                    <p>San Pedro City, Laguna</p>
+                  </div>
+                </div>
+                <div className="timeline-entry" data-side="left">
+                  <div className="timeline-content">
+                    <span className="timeline-date">2019</span>
+                    <h3>Junior Barangay Official – 2nd Councilor</h3>
+                    <p>Barangay San Antonio, San Pedro City, Laguna</p>
+                  </div>
+                </div>
+                <div className="timeline-entry" data-side="right">
+                  <div className="timeline-content">
+                    <span className="timeline-date">2019</span>
+                    <h3>SSG President</h3>
+                    <p>Adelina I National High School</p>
+                  </div>
+                </div>
+                <div className="timeline-entry" data-side="left">
+                  <div className="timeline-content">
+                    <span className="timeline-date">2018</span>
+                    <h3>SSG P.I.O.</h3>
+                    <p>Adelina I National High School</p>
+                  </div>
+                </div>
+                <div className="timeline-entry" data-side="right">
+                  <div className="timeline-content">
+                    <span className="timeline-date">2017</span>
+                    <h3>SSG Auxiliary</h3>
+                    <p>Adelina I National High School</p>
+                  </div>
+                </div>
+                <div className="timeline-entry" data-side="left">
+                  <div className="timeline-content">
+                    <span className="timeline-date">2017</span>
+                    <h3>Interact Club P.O. Boy</h3>
+                    <p>Adelina I National High School</p>
+                  </div>
+                </div>
+              </>
+            )}
+
+          </div>
+          <div className="timeline-fade" />
+          </div>
         </div>
       </section>
 
