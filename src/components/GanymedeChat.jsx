@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { sendMessage } from '../services/chatService'
+import ganymedeLogo from '../assets/Ganymede.png'
 import './GanymedeChat.css'
 
 const STORAGE_KEY = 'ganymede-chat'
@@ -36,10 +37,49 @@ export default function GanymedeChat() {
   })
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [showPrompt, setShowPrompt] = useState(false)
+  const [promptExiting, setPromptExiting] = useState(false)
 
   const messagesEndRef = useRef(null)
   const inputRef = useRef(null)
   const messagesRef = useRef(messages)
+  const isOpenRef = useRef(isOpen)
+
+  useEffect(() => { isOpenRef.current = isOpen }, [isOpen])
+
+  const dismissPrompt = useCallback(() => {
+    setPromptExiting(true)
+    setTimeout(() => {
+      setShowPrompt(false)
+      setPromptExiting(false)
+    }, 300)
+  }, [])
+
+  useEffect(() => {
+    const initial = setTimeout(() => {
+      if (!isOpenRef.current) {
+        setShowPrompt(true)
+        setTimeout(dismissPrompt, 5000)
+      }
+    }, 5000)
+
+    const interval = setInterval(() => {
+      if (!isOpenRef.current) {
+        setShowPrompt(true)
+        setTimeout(dismissPrompt, 5000)
+      }
+    }, 30000)
+
+    return () => {
+      clearTimeout(initial)
+      clearInterval(interval)
+    }
+  }, [dismissPrompt])
+
+  const handlePromptClick = () => {
+    dismissPrompt()
+    setIsOpen(true)
+  }
 
   useEffect(() => {
     messagesRef.current = messages
@@ -95,7 +135,7 @@ export default function GanymedeChat() {
         <div className="ganymede-panel">
           <div className="ganymede-header">
             <div className="ganymede-header-info">
-              <div className="ganymede-header-icon">⚡</div>
+              <div className="ganymede-header-icon"><img src={ganymedeLogo} alt="Ganymede" /></div>
               <div className="ganymede-header-text">
                 <span className="ganymede-header-title">Ganymede 1.0</span>
                 <span className="ganymede-header-subtitle">powered by Mokusei AI</span>
@@ -146,13 +186,20 @@ export default function GanymedeChat() {
         </div>
       )}
 
-      <button
-        className={`ganymede-button${isOpen ? ' open' : ''}`}
-        onClick={handleToggle}
-        aria-label={isOpen ? 'Close chat' : 'Open chat'}
-      >
-        {isOpen ? '✕' : '⚡'}
-      </button>
+      <div className="ganymede-wrapper">
+        {(showPrompt || promptExiting) && (
+          <div className={`ganymede-prompt${promptExiting ? ' exiting' : ''}`} onClick={handlePromptClick}>
+            Talk to Ganymede now!
+          </div>
+        )}
+        <button
+          className={`ganymede-button${isOpen ? ' open' : ''}`}
+          onClick={handleToggle}
+          aria-label={isOpen ? 'Close chat' : 'Open chat'}
+        >
+          {isOpen ? '✕' : <img src={ganymedeLogo} alt="Ganymede" />}
+        </button>
+      </div>
     </>
   )
 }
