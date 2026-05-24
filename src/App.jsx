@@ -3,6 +3,7 @@ import './App.css'
 import silhouette from './assets/Mico_dark.png'
 import kevinsExpress from './assets/KevinsExpress.png'
 import maxFireman from './assets/MaxFireman.png'
+import GanymedeChat from './components/GanymedeChat'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -406,6 +407,7 @@ function App() {
           </div>
         </div>
       </section>
+      <GanymedeChat />
     </>
   )
 }
