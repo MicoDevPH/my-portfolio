@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import ReactMarkdown from 'react-markdown'
 import { sendMessage } from '../services/chatService'
 import './GanymedeChat.css'
 
@@ -106,7 +107,7 @@ export default function GanymedeChat() {
           <div className="ganymede-messages">
             {messages.map((msg, i) => (
               <div key={i} className={`ganymede-message ${msg.role}`}>
-                {msg.text}
+                <ReactMarkdown>{msg.text}</ReactMarkdown>
               </div>
             ))}
             {isLoading && (

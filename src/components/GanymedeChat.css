@@ -191,6 +191,48 @@
   color: var(--accent);
 }
 
+.ganymede-message.ai h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-h);
+  margin: 8px 0 4px;
+}
+
+.ganymede-message.ai p {
+  margin: 4px 0;
+}
+
+.ganymede-message.ai p:first-child {
+  margin-top: 0;
+}
+
+.ganymede-message.ai p:last-child {
+  margin-bottom: 0;
+}
+
+.ganymede-message.ai ul,
+.ganymede-message.ai ol {
+  margin: 4px 0;
+  padding-left: 20px;
+}
+
+.ganymede-message.ai li {
+  margin-bottom: 2px;
+}
+
+.ganymede-message.ai code {
+  font-size: 13px;
+  background: var(--code-bg);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-family: var(--mono);
+}
+
+.ganymede-message.ai a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
 .ganymede-input-area {
   display: flex;
   align-items: center;
