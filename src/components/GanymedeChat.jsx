@@ -129,6 +129,11 @@ export default function GanymedeChat() {
 
   const handleToggle = () => setIsOpen(o => !o)
 
+  const handleNewChat = () => {
+    localStorage.removeItem(STORAGE_KEY)
+    setMessages([WELCOME_MSG])
+  }
+
   return (
     <>
       {isOpen && (
@@ -141,7 +146,10 @@ export default function GanymedeChat() {
                 <span className="ganymede-header-subtitle">powered by Mokusei AI</span>
               </div>
             </div>
-            <button className="ganymede-close" onClick={handleToggle} aria-label="Close chat">✕</button>
+            <div className="ganymede-header-actions">
+              <button className="ganymede-newchat" onClick={handleNewChat} aria-label="New conversation">+ New</button>
+              <button className="ganymede-close" onClick={handleToggle} aria-label="Close chat">✕</button>
+            </div>
           </div>
 
           <div className="ganymede-messages">

@@ -202,6 +202,30 @@
   letter-spacing: 0.03em;
 }
 
+.ganymede-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ganymede-newchat {
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  flex-shrink: 0;
+
+  &:hover {
+    background: var(--social-bg);
+    color: var(--text-h);
+  }
+}
+
 .ganymede-close {
   width: 32px;
   height: 32px;
