@@ -25,7 +25,7 @@
   font-family: 'Cormorant Garamond', serif;
   font-weight: 600;
   font-size: clamp(64px, 12vw, 120px);
-  color: #FF8C00;
+  color: #3B82F6;
   letter-spacing: 0.06em;
   line-height: 1;
   animation: logo-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -55,7 +55,7 @@
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #FF8C00;
+    background: #3B82F6;
     opacity: 0.3;
     animation: dot-pulse 1.2s ease-in-out infinite;
 
@@ -112,7 +112,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-weight: 600;
     font-size: 30px;
-    color: #FF8C00;
+    color: #3B82F6;
     letter-spacing: 0.06em;
     text-decoration: none;
     line-height: 1;
@@ -142,13 +142,13 @@
     white-space: nowrap;
 
     &:hover {
-      color: #FF8C00;
-      background: rgba(255, 140, 0, 0.08);
+      color: #3B82F6;
+      background: rgba(59, 130, 246, 0.08);
     }
 
     &.active {
-      color: #FF8C00;
-      background: rgba(255, 140, 0, 0.12);
+      color: #3B82F6;
+      background: rgba(59, 130, 246, 0.12);
     }
   }
 
@@ -174,8 +174,8 @@
     transition: color 0.2s, background 0.2s;
 
     &:hover {
-      color: #FF8C00;
-      background: rgba(255, 140, 0, 0.08);
+      color: #3B82F6;
+      background: rgba(59, 130, 246, 0.08);
     }
   }
 
@@ -271,7 +271,7 @@
 
     &:hover,
     &.active {
-      color: #FF8C00;
+      color: #3B82F6;
     }
   }
 }
@@ -291,7 +291,7 @@
     font-family: 'Druk', sans-serif;
     font-weight: 900;
     font-size: 30vw;
-    color: #FF8C00;
+    color: #3B82F6;
     text-transform: uppercase;
     display: block;
     white-space: nowrap;
@@ -956,7 +956,7 @@ html.light .mobile-menu {
 
 html.light .mobile-menu a:hover,
 html.light .mobile-menu a.active {
-  color: #FF8C00 !important;
+  color: #3B82F6 !important;
 }
 
 @media (max-width: 1024px) {
