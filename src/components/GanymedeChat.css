@@ -455,14 +455,42 @@
 
   .ganymede-prompt {
     font-size: 13px;
-    padding: 8px 14px;
-    white-space: normal;
-    max-width: 180px;
-    right: calc(100% + 10px);
+    padding: 8px 16px;
+    white-space: nowrap;
+    top: auto;
+    bottom: calc(100% + 12px);
+    right: 0;
+    transform: none;
+    left: auto;
+    animation: ganymede-prompt-in-mobile 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .ganymede-prompt::after {
-    right: -6px;
+    top: 100%;
+    right: 18px;
+    transform: none;
+    border-top: 6px solid var(--accent);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: none;
+  }
+
+  .ganymede-prompt:hover {
+    transform: scale(1.05);
+  }
+
+  .ganymede-prompt.exiting {
+    animation: ganymede-prompt-out-mobile 0.3s ease-in forwards;
+  }
+
+  @keyframes ganymede-prompt-in-mobile {
+    0% { opacity: 0; transform: translateY(8px) scale(0.9); }
+    60% { opacity: 1; transform: translateY(-2px) scale(1.02); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes ganymede-prompt-out-mobile {
+    to { opacity: 0; transform: translateY(8px) scale(0.9); }
   }
 
   .ganymede-panel {

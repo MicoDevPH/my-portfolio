@@ -3,7 +3,21 @@ import './App.css'
 import silhouette from './assets/Mico_dark.png'
 import kevinsExpress from './assets/KevinsExpress.png'
 import maxFireman from './assets/MaxFireman.png'
+import aboutMe from './assets/AboutMe.jpg'
 import GanymedeChat from './components/GanymedeChat'
+
+const TickerRow = ({ tools, reverse }) => (
+  <div className="ticker">
+    <div className={`ticker-track${reverse ? ' ticker-reverse' : ''}`}>
+      {[...tools, ...tools].map((tool, i) => (
+        <div key={i} className="ticker-item">
+          <img src={tool.icon} alt={tool.name} />
+          <span>{tool.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+)
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -79,19 +93,6 @@ function App() {
     { name: 'VS Code', icon: `${DEVICON}/vscode/vscode-original.svg` },
     { name: 'Eclipse', icon: `${DEVICON}/eclipse/eclipse-original.svg` },
   ]
-
-  const TickerRow = ({ tools, reverse }) => (
-    <div className="ticker">
-      <div className={`ticker-track${reverse ? ' ticker-reverse' : ''}`}>
-        {[...tools, ...tools].map((tool, i) => (
-          <div key={i} className="ticker-item">
-            <img src={tool.icon} alt={tool.name} />
-            <span>{tool.name}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
 
   const [isDark, setIsDark] = useState(() => {
     const stored = localStorage.getItem('theme')
@@ -295,32 +296,37 @@ function App() {
 
       <section id="about">
         <div className="about-inner">
-          <p className="about-label">About Me</p>
-          <h2 className="about-heading">
-            Hi, I'm<br />
-            <em>Mico Nakase</em>
-          </h2>
-          <div className="about-content">
-            <p>
-              I'm a junior software engineer and music producer who enjoys building
-              things that look good and work well. I like writing clean code just as
-              much as I like producing beats — always learning, always creating.
-            </p>
-            <p>
-              Currently a Software Engineering Intern at <strong>Prosperna
-              Philippines</strong> and the Producer &amp; External Vice President
-              at <strong>Truchorus Performance Company</strong>.
-            </p>
+          <div className="about-left">
+            <p className="about-label">About Me</p>
+            <h2 className="about-heading">
+              Hi, I'm<br />
+              <em>Mico Nakase</em>
+            </h2>
+            <div className="about-content">
+              <p>
+                I'm a Full Stack & Generative AI Developer and music producer who enjoys building
+                things that look good and work well. I like writing clean code just as
+                much as I like producing beats — always learning, always creating.
+              </p>
+              <p>
+                Currently a Full Stack & Generative AI Developer Intern at <strong>Prosperna
+                Philippines</strong> and the Producer &amp; External Vice President
+                at <strong>Truchorus Performance Company</strong>.
+              </p>
+            </div>
+            <div className="about-stats">
+              <div className="about-stat">
+                <span>2</span>
+                <p>Projects Built</p>
+              </div>
+              <div className="about-stat">
+                <span>6</span>
+                <p>Music Produced</p>
+              </div>
+            </div>
           </div>
-          <div className="about-stats">
-            <div className="about-stat">
-              <span>2</span>
-              <p>Projects Built</p>
-            </div>
-            <div className="about-stat">
-              <span>6</span>
-              <p>Music Produced</p>
-            </div>
+          <div className="about-right">
+            <img className="about-portrait" src={aboutMe} alt="Mico Nakase" />
           </div>
         </div>
       </section>
