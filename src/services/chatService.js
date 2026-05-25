@@ -1,3 +1,5 @@
+import portfolioContext from '/.mokusei/ganymede_context.md?raw'
+
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 const AGENT = 'ganymede'
 
@@ -13,7 +15,8 @@ export async function sendMessage(userMessage, messageHistory) {
     body: JSON.stringify({
       message: userMessage,
       context,
-      api_key: null,
+      portfolio: portfolioContext,
+      api_key: import.meta.env.VITE_MOKUSEI_API_KEY || null,
     }),
   })
 
