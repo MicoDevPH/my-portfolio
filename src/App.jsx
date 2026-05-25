@@ -4,6 +4,7 @@ import silhouette from './assets/Mico_dark.png'
 import kevinsExpress from './assets/KevinsExpress.png'
 import maxFireman from './assets/MaxFireman.png'
 import aboutMe from './assets/AboutMe.jpg'
+import myPortfolio from './assets/MyPortfolio.png'
 import GanymedeChat from './components/GanymedeChat'
 import emailjs from '@emailjs/browser'
 
@@ -25,6 +26,11 @@ function App() {
   const [fadeOut, setFadeOut] = useState(false)
   const [flyStyle, setFlyStyle] = useState(null)
   const [heroReady, setHeroReady] = useState(false)
+  const [aboutVisible, setAboutVisible] = useState(false)
+  const [worksVisible, setWorksVisible] = useState(false)
+  const [timelineVisible, setTimelineVisible] = useState(false)
+  const [skillsVisible, setSkillsVisible] = useState(false)
+  const [contactVisible, setContactVisible] = useState(false)
 
   const navLogoRef = useRef(null)
   const loadingLogoRef = useRef(null)
@@ -56,9 +62,36 @@ function App() {
   const timelineTrackRef = useRef(null)
   const timelineProgressRef = useRef(null)
 
+  const DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons'
+
+  const techIcons = {
+    Html5: <img src={`${DEVICON}/html5/html5-original.svg`} width="12" height="12" alt="" />,
+    CSS3: <img src={`${DEVICON}/css3/css3-original.svg`} width="12" height="12" alt="" />,
+    PHP: <img src={`${DEVICON}/php/php-original.svg`} width="12" height="12" alt="" />,
+    React: <img src={`${DEVICON}/react/react-original.svg`} width="12" height="12" alt="" />,
+    NodeJS: <img src={`${DEVICON}/nodejs/nodejs-original.svg`} width="12" height="12" alt="" />,
+    Python: <img src={`${DEVICON}/python/python-original.svg`} width="12" height="12" alt="" />,
+  }
+
   const programmingWorks = [
-    { img: kevinsExpress, title: "Kevin's Express Studio", desc: 'Full-stack booking platform for music studio scheduling and management' },
-    { img: maxFireman, title: 'Max Fireman', desc: 'AI-powered support platform that diagnoses bugs and automates ticket creation in ClickUp' },
+    {
+      title: "Kevin's Express Studio",
+      desc: 'Full-stack booking platform for music studio scheduling and management.',
+      img: kevinsExpress,
+      tags: ['PHP', 'CSS3', 'Html5'],
+    },
+    {
+      title: 'Max Fireman',
+      desc: 'AI-powered support platform that diagnoses bugs and automates ticket creation in ClickUp.',
+      img: maxFireman,
+      tags: ['React', 'NodeJS', 'Python'],
+    },
+    {
+      title: 'My Portfolio',
+      desc: 'Personal portfolio built with Ganymede 1.0, an AI agent developed by Mokusei AI.',
+      img: myPortfolio,
+      tags: ['React', 'Python'],
+    },
   ]
 
   const prevSlide = () => setCarouselIndex(i => (i - 1 + programmingWorks.length) % programmingWorks.length)
@@ -72,7 +105,6 @@ function App() {
     bar.style.width = `${Math.min(progress, 1) * 100}%`
   }
 
-  const DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons'
   const frontendTools = [
     { name: 'HTML5', icon: `${DEVICON}/html5/html5-original.svg` },
     { name: 'CSS3', icon: `${DEVICON}/css3/css3-original.svg` },
@@ -208,6 +240,7 @@ function App() {
         silhouetteRef.current.style.transform = `translateX(-50%) scale(${s})`
         silhouetteRef.current.style.opacity = s
       }
+
     }
 
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -235,6 +268,66 @@ function App() {
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // About section scroll reveal
+  useEffect(() => {
+    const el = document.getElementById('about')
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setAboutVisible(entry.isIntersecting),
+      { threshold: 0.2 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  // Works section scroll reveal
+  useEffect(() => {
+    const el = document.getElementById('works')
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setWorksVisible(entry.isIntersecting),
+      { threshold: 0.2 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  // Timeline section scroll reveal
+  useEffect(() => {
+    const el = document.getElementById('timeline')
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setTimelineVisible(entry.isIntersecting),
+      { threshold: 0.2 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  // Skills section scroll reveal
+  useEffect(() => {
+    const el = document.getElementById('skills')
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setSkillsVisible(entry.isIntersecting),
+      { threshold: 0.2 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  // Contact section scroll reveal
+  useEffect(() => {
+    const el = document.getElementById('contact')
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setContactVisible(entry.isIntersecting),
+      { threshold: 0.2 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
   }, [])
 
   return (
@@ -336,7 +429,7 @@ function App() {
         </div>
       </section>
 
-      <section id="about">
+      <section id="about" className={aboutVisible ? 'about-visible' : ''}>
         <div className="about-inner">
           <div className="about-left">
             <p className="about-label">About Me</p>
@@ -344,6 +437,24 @@ function App() {
               Hi, I'm<br />
               <em>Mico Nakase</em>
             </h2>
+            <div className="about-btns">
+              <a className="about-cv-btn" href="/resume.pdf" target="_blank" download>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Download CV
+              </a>
+              <a className="about-cv-btn about-cv-btn-outline" href="#works">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="3" width="20" height="18" rx="2" ry="2" />
+                  <line x1="8" y1="9" x2="16" y2="9" />
+                  <line x1="8" y1="13" x2="12" y2="13" />
+                </svg>
+                View My Work
+              </a>
+            </div>
             <div className="about-content">
               <p>
                 I'm a Full Stack & Generative AI Developer and music producer who enjoys building
@@ -358,7 +469,7 @@ function App() {
             </div>
             <div className="about-stats">
               <div className="about-stat">
-                <span>2</span>
+                <span>3</span>
                 <p>Projects Built</p>
               </div>
               <div className="about-stat">
@@ -368,12 +479,14 @@ function App() {
             </div>
           </div>
           <div className="about-right">
-            <img className="about-portrait" src={aboutMe} alt="Mico Nakase" />
+            <div className="about-image-wrap">
+              <img className="about-portrait" src={aboutMe} alt="Mico Nakase" />
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="works">
+      <section id="works" className={worksVisible ? 'works-visible' : ''}>
         <div className="works-inner">
           <h2 className="works-heading">
             My <em>Works</em>
@@ -418,6 +531,16 @@ function App() {
                       <div className="carousel-info">
                         <span className="carousel-title">{work.title}</span>
                         <span className="carousel-desc">{work.desc}</span>
+                        {work.tags && (
+                          <div className="carousel-tags">
+                            {work.tags.map((tag, i) => (
+                              <span key={i} className="carousel-tag">
+                                {techIcons[tag]}
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   )
@@ -433,7 +556,7 @@ function App() {
         </div>
       </section>
 
-      <section id="timeline">
+      <section id="timeline" className={timelineVisible ? 'timeline-visible' : ''}>
         <div className="timeline-inner">
           <h2 className="timeline-heading">
             My <em>Journey</em>
@@ -610,7 +733,7 @@ function App() {
         </div>
       </section>
 
-      <section id="skills">
+      <section id="skills" className={skillsVisible ? 'skills-visible' : ''}>
         <div className="skills-inner">
           <h2 className="skills-heading">
             Tech <em>Stack</em>
@@ -633,7 +756,7 @@ function App() {
         </div>
       </section>
 
-      <section id="contact">
+      <section id="contact" className={contactVisible ? 'contact-visible' : ''}>
         <div className="contact-inner">
           <h2 className="contact-heading">Get In <em>Touch</em></h2>
           <p className="contact-description">Have a project in mind or just want to say hi? Drop me a message!</p>
@@ -693,6 +816,14 @@ function App() {
       <footer>
         <div className="footer-inner">
           <span className="footer-brand">MLN.</span>
+          <div className="footer-meta">
+            <span className="footer-location">San Pedro, Laguna</span>
+            <span className="footer-sep">&middot;</span>
+            <span className="footer-availability">
+              <span className="avail-dot" />
+              Open to work
+            </span>
+          </div>
           <div className="footer-social">
             <a href="https://github.com/MicoDevPH" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
