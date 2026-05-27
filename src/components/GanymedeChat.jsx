@@ -26,7 +26,7 @@ function saveMessages(messages) {
 
 const WELCOME_MSG = {
   role: 'ai',
-  text: "Hey! I'm **Ganymede 1.0**, your personal assistant powered by Mokusei AI. Ask me anything about Mico's work!",
+  text: "Hey! I'm **Ganymede v1.2**, your personal assistant powered by Mokusei AI. Ask me anything about Mico's work!",
 }
 
 export default function GanymedeChat() {
@@ -142,7 +142,7 @@ export default function GanymedeChat() {
             <div className="ganymede-header-info">
               <div className="ganymede-header-icon"><img src={ganymedeLogo} alt="Ganymede" /></div>
               <div className="ganymede-header-text">
-                <span className="ganymede-header-title">Ganymede 1.0</span>
+                <span className="ganymede-header-title">Ganymede v1.2</span>
                 <span className="ganymede-header-subtitle">powered by Mokusei AI</span>
               </div>
             </div>

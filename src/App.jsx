@@ -88,7 +88,7 @@ function App() {
     },
     {
       title: 'My Portfolio',
-      desc: 'Personal portfolio built with Ganymede 1.0, an AI agent developed by Mokusei AI.',
+      desc: 'Personal portfolio built with Ganymede v1.2, an AI agent developed by Mokusei AI.',
       img: myPortfolio,
       tags: ['React', 'Python'],
     },
