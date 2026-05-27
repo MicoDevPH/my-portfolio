@@ -59,10 +59,22 @@ GitHub, Git, Postman, SonarQube, Composer, npm, VS Code, Eclipse
 - **Projects Built:** 2
 - **Music Produced:** 6
 
+## Groups
+- **Truchorus Performance Company:** TPC is a youth group from San Pedro City, Laguna where they specializes different type of talents and leaderships. Singing, Dancing, Acting, Producing and many more related to Arts and Musics. Mico is the External Vice President and he is also the Choreographer and Music Producer.
+
+- **D'Class6:** Mico's band since 2017, he is the bassist. Champion of battle of the bands in 2019 in Adelina I National High School.
+
+## Additionals
+- **Breed:** Mico is Half Filipino/Half Japanese
+- **Girlfriend:** Her name is Julie Ann Carpio
+- **Instruments:** Can play guitar, bass guitar, keyboards and drums.
+- **Talents:** Can sing, dance, act, solve rubiks cube and many more.
+
 ## Contact
-
 <!-- Add your email, LinkedIn, GitHub, and other links here -->
-
-- GitHub: <!-- https://github.com/your-username -->
-- LinkedIn: <!-- https://linkedin.com/in/your-profile -->
-- Email: <!-- your@email.com -->
+- GitHub: https://github.com/MicoDevPH
+- Facebook: https://www.facebook.com/mics12345
+- Instagram: https://www.instagram.com/itsmicssss_/
+- Tiktok: https://www.tiktok.com/@micodevph
+- LinkedIn: https://www.linkedin.com/in/mico-nakase-0835b1391/
+- Email: mailto:miconakaseyt@gmail.com
