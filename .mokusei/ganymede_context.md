@@ -5,6 +5,7 @@
 - **Last Name:** Nakase
 - **Birthdate:** November 17, 2003
 - **Role:** Junior Software Engineer & Music Producer
+- **Girlfriend:** Julie Ann Carpio
 - **Location:** San Pedro, Laguna, Philippines
 - **Currently:** Software Engineering Intern at Prosperna Philippines
 - **Also:** Producer & External Vice President at Truchorus Performance Company
@@ -66,7 +67,6 @@ GitHub, Git, Postman, SonarQube, Composer, npm, VS Code, Eclipse
 
 ## Additionals
 - **Breed:** Mico is Half Filipino/Half Japanese
-- **Girlfriend:** Her name is Julie Ann Carpio
 - **Instruments:** Can play guitar, bass guitar, keyboards and drums.
 - **Talents:** Can sing, dance, act, solve rubiks cube and many more.
 
