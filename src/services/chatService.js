@@ -5,8 +5,8 @@ const AGENT = 'ganymede'
 
 export async function sendMessage(userMessage, messageHistory) {
   const context = messageHistory
-    .filter(m => !(m.role === 'ai' && messageHistory.indexOf(m) === 0))
-    .map(m => `${m.role === 'user' ? 'Visitor' : 'Ganymede'}: ${m.text}`)
+    .filter((m, i) => !(m.role === 'ai' && i === 0))
+    .map((m) => `${m.role === 'user' ? 'Visitor' : 'Ganymede'}: ${m.text}`)
     .join('\n\n')
 
   const res = await fetch(`${API_BASE}/api/agents/${AGENT}/chat`, {
