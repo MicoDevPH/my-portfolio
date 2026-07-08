@@ -63,7 +63,7 @@ export default function Skills() {
           style={{ fontSize: 'clamp(16px, 1.4vw, 19px)', lineHeight: '1.75' }}>
           Tools and technologies I work with.
         </p>
-        <div className={`grid grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-4 ${reveal('0.2s')}`}>
+        <div className={`grid cq-container grid-cols-4 @lg:grid-cols-3 @md:grid-cols-2 @sm:grid-cols-2 gap-4 ${reveal('0.2s')}`}>
           <BentoSection title="Frontend" tools={frontendTools} />
           <BentoSection title="Backend" tools={backendTools} />
           <BentoSection title="Developer Tooling" tools={toolsAndVc} />

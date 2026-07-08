@@ -47,7 +47,7 @@ export default function GanymedeChat() {
   return (
     <>
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-999 w-[380px] max-h-[min(560px,calc(100vh-128px))] h-[min(560px,calc(100vh-128px))] bg-(--color-bg) border border-(--color-border) rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4)] flex flex-col overflow-hidden animate-ganymede-slide-up origin-bottom-right box-border
+        <div className="fixed bottom-24 right-6 z-999 w-[380px] max-h-[min(560px,calc(100vh-128px))] h-[min(560px,calc(100vh-128px))] bg-(--color-bg) border border-(--color-border) rounded-2xl shadow-[0_8px_40px_rgb(0_0_0_/_0.4)] flex flex-col overflow-hidden animate-ganymede-slide-up origin-bottom-right box-border
           max-md:right-2 max-md:left-2 max-md:bottom-[76px] max-md:w-[calc(100vw-16px)] max-md:max-h-[min(480px,calc(100vh-100px))] max-md:h-auto max-md:rounded-xl
           max-[481px]:right-4 max-[481px]:w-[360px] max-[481px]:max-h-[min(500px,calc(100vh-128px))] max-[481px]:h-auto"
         >
@@ -93,7 +93,7 @@ export default function GanymedeChat() {
           <div className="flex items-center gap-2 px-4 py-3 border-t border-(--color-border) shrink-0 max-md:px-2.5 max-md:py-2">
             <input
               ref={inputRef}
-              className="flex-1 px-3.5 py-2.5 rounded-[10px] border border-(--color-border) bg-(--color-code-bg) text-(--color-text) text-sm font-sans outline-none transition-[border-color] duration-200 placeholder:text-(--color-text) placeholder:opacity-50 focus:border-(--color-accent) max-md:px-3 max-md:py-2 max-md:text-[13px]"
+              className="flex-1 px-3.5 py-2.5 rounded-[10px] border border-(--color-border) bg-(--color-code-bg) text-(--color-text) text-sm font-sans outline-hidden transition-[border-color] duration-200 placeholder:text-(--color-text) placeholder:opacity-50 focus:border-(--color-accent) max-md:px-3 max-md:py-2 max-md:text-[13px]"
               type="text"
               placeholder="Ask me anything..."
               value={input}
@@ -102,7 +102,7 @@ export default function GanymedeChat() {
               disabled={isLoading}
             />
             <button
-              className="w-[38px] h-[38px] rounded-full border-none bg-(--color-accent) text-white cursor-pointer flex items-center justify-center shrink-0 transition-[transform,box-shadow] duration-200 hover:scale-105 hover:shadow-[0_2px_12px_rgba(59,130,246,0.4)] active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed max-md:w-[34px] max-md:h-[34px]"
+              className="w-[38px] h-[38px] rounded-full border-none bg-(--color-accent) text-white cursor-pointer flex items-center justify-center shrink-0 transition-[transform,box-shadow] duration-200 hover:scale-105 hover:shadow-accent-hover active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed max-md:w-[34px] max-md:h-[34px]"
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
               aria-label="Send message"
@@ -119,7 +119,7 @@ export default function GanymedeChat() {
       <div className="fixed bottom-6 right-6 z-[1000] animate-ganymede-float max-sm:bottom-4 max-sm:right-4">
         {showPrompt && (
           <div
-            className={`absolute top-1/2 right-[calc(100%+16px)] -translate-y-1/2 bg-(--color-accent) text-white px-[18px] py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap cursor-pointer z-10 shadow-[0_8px_32px_rgba(59,130,246,0.4),0_4px_16px_rgba(0,0,0,0.3)] ${
+            className={`absolute top-1/2 right-[calc(100%+16px)] -translate-y-1/2 bg-(--color-accent) text-white px-[18px] py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap cursor-pointer z-10 shadow-accent-md ${
               promptExiting ? 'animate-ganymede-prompt-out' : 'animate-ganymede-prompt-in'
             } max-sm:top-auto max-sm:bottom-[calc(100%+12px)] max-sm:right-0 max-sm:left-auto max-sm:transform-none max-sm:px-4 max-sm:py-2 max-sm:text-[13px]`}
             onClick={handlePromptClick}
@@ -132,10 +132,10 @@ export default function GanymedeChat() {
         <div className="relative">
           <div className="absolute -inset-1 rounded-full bg-conic-[from_0deg,var(--color-accent),transparent_30%,var(--color-accent),transparent_60%,var(--color-accent)] animate-ganymede-spin -z-1" />
           <button
-            className={`relative z-1 w-14 h-14 max-sm:w-12 max-sm:h-12 rounded-full border-none cursor-pointer flex items-center justify-center shadow-[0_4px_20px_rgba(59,130,246,0.35)] transition-[transform,box-shadow] duration-300 select-none p-0 leading-none ${
+            className={`relative z-1 w-14 h-14 max-sm:w-12 max-sm:h-12 rounded-full border-none cursor-pointer flex items-center justify-center shadow-accent-btn transition-[transform,box-shadow] duration-300 select-none p-0 leading-none ${
               isOpen
                 ? 'bg-(--color-accent) text-white text-2xl max-sm:text-xl rotate-45 hover:rotate-45 hover:scale-110'
-                : 'bg-(--color-accent) text-white hover:scale-110 hover:shadow-[0_6px_28px_rgba(59,130,246,0.5)] active:scale-95'
+                : 'bg-(--color-accent) text-white hover:scale-110 hover:shadow-accent-xl active:scale-95'
             }`}
             onClick={handleToggle}
             aria-label={isOpen ? 'Close chat' : 'Open chat'}

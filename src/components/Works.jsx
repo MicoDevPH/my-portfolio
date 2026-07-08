@@ -3,6 +3,7 @@ import { useInView } from '../hooks/useInView'
 import { techIcons } from '../constants/techIcons'
 import { programmingWorks, musicWorks } from '../constants/worksData'
 import Icon from './Icon'
+import TabButton from './TabButton'
 
 export default function Works({
   worksTab,
@@ -102,7 +103,7 @@ export default function Works({
         >
           <Icon name="chevronLeft" size={20} />
         </button>
-        <div className={`relative w-full ${isMusic ? 'max-w-[506px] aspect-square lg:max-w-[366px]' : 'max-w-[900px] aspect-video lg:max-w-[650px]'} sm:max-w-[85vw]`}>
+        <div className={`cq-container relative w-full ${isMusic ? 'max-w-[506px] aspect-square lg:max-w-[366px]' : 'max-w-[900px] aspect-video lg:max-w-[650px]'} sm:max-w-[85vw]`}>
           {works.map((work, index) => {
             const offset = (index - carouselIndex + works.length) % works.length
             let position = 'center'
@@ -200,17 +201,9 @@ export default function Works({
         </p>
         <div className={`flex justify-center gap-3 mb-12 ${revealFromRight('0.2s')}`}>
           {['programming', 'music'].map((tab) => (
-            <button
-              key={tab}
-              className={`font-sans text-sm font-medium tracking-[0.03em] px-7 py-2.5 rounded-[10px] border cursor-pointer transition-all duration-250 sm:px-5 sm:py-2 sm:text-[13px] ${
-                worksTab === tab
-                  ? 'bg-(--color-accent) text-white border-(--color-accent)'
-                  : 'bg-(--color-social-bg) text-(--color-text) border-(--color-border) hover:text-(--color-accent) hover:border-(--color-accent)'
-              }`}
-              onClick={() => onTabChange(tab)}
-            >
+            <TabButton key={tab} active={worksTab === tab} onClick={() => onTabChange(tab)}>
               {tab === 'programming' ? 'Programming' : 'Music'}
-            </button>
+            </TabButton>
           ))}
         </div>
         <div className={revealFromLeft('0.3s')}>

@@ -48,7 +48,7 @@ export default function Navbar({
               <a
                 href="/"
                 data-section={id}
-                className={`text-[13px] font-medium tracking-[0.03em] px-3.5 py-1.5 rounded-[10px] no-underline whitespace-nowrap transition-[color,background] duration-200 ${
+                className={`text-[15px] font-medium tracking-[0.03em] px-3.5 py-1.5 rounded-[10px] no-underline whitespace-nowrap transition-[color,background] duration-200 ${
                   activeSection === id
                     ? 'text-(--color-accent) bg-(--color-accent-bg)'
                     : 'text-(--color-text) hover:text-(--color-accent) hover:bg-(--color-accent-bg)'

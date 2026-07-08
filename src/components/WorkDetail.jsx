@@ -8,7 +8,7 @@ export default function WorkDetail({ work, onBack }) {
     <div className="min-h-screen bg-(--color-bg) overflow-y-auto">
       <div className="relative w-full max-h-[60vh] overflow-hidden md:max-h-[40vh]">
         <button
-          className="absolute top-5 left-5 z-10 flex items-center justify-center w-9 h-9 rounded-full border border-[rgba(255,255,255,0.2)] bg-[rgba(0,0,0,0.6)] text-white cursor-pointer transition-[background] duration-200 hover:bg-[rgba(0,0,0,0.85)]"
+          className="absolute top-5 left-5 z-10 flex items-center justify-center w-9 h-9 rounded-full border border-white/20 bg-black/60 text-white cursor-pointer transition-[background] duration-200 hover:bg-black/85"
           onClick={onBack}
           aria-label="Back"
         >

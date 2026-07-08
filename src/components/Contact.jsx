@@ -27,7 +27,7 @@ const SOCIAL_LINKS = [
 ]
 
 const inputClass =
-  'w-full p-3.5 font-sans text-[15px] text-(--color-text-h) bg-(--color-code-bg) border border-(--color-border) rounded-[10px] outline-none box-border transition-[border-color,box-shadow] duration-250 placeholder:text-(--color-text) placeholder:opacity-60 focus:border-(--color-accent) focus:shadow-[0_0_0_3px_var(--color-accent-bg)]'
+  'w-full p-3.5 font-sans text-[15px] text-(--color-text-h) bg-(--color-code-bg) border border-(--color-border) rounded-[10px] outline-hidden box-border transition-[border-color,box-shadow] duration-250 placeholder:text-(--color-text) placeholder:opacity-60 focus:border-(--color-accent) focus:shadow-[0_0_0_3px_var(--color-accent-bg)]'
 
 export default function Contact() {
   const visible = useInView('contact')

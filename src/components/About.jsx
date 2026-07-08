@@ -34,11 +34,11 @@ export default function About() {
             <em className="not-italic animate-glass-shimmer" style={gradientText}>Mico Nakase</em>
           </h2>
           <div className={`flex gap-3 mb-4 ${reveal()}`}>
-            <a className="inline-flex items-center gap-2 px-7 py-2.5 rounded-lg text-[11px] font-medium tracking-[0.14em] uppercase no-underline whitespace-nowrap bg-(--color-accent) text-white cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(59,130,246,0.3)]" href="/resume.pdf" target="_blank" download>
+              <a className="inline-flex items-center gap-2 px-7 py-2.5 rounded-lg text-[11px] font-medium tracking-[0.14em] uppercase no-underline whitespace-nowrap bg-(--color-accent) text-white cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-accent-sm" href="/resume.pdf" target="_blank" download>
               <Icon name="arrowDown" size={12} />
               Download CV
             </a>
-            <a className="inline-flex items-center gap-2 px-7 py-2.5 rounded-lg text-[11px] font-medium tracking-[0.14em] uppercase no-underline whitespace-nowrap bg-transparent border-[1.5px] border-(--color-accent) text-(--color-accent) cursor-pointer transition-all duration-300 hover:bg-(--color-accent) hover:text-white hover:shadow-[0_4px_20px_rgba(59,130,246,0.3)]" href="#works">
+            <a className="inline-flex items-center gap-2 px-7 py-2.5 rounded-lg text-[11px] font-medium tracking-[0.14em] uppercase no-underline whitespace-nowrap bg-transparent border-[1.5px] border-(--color-accent) text-(--color-accent) cursor-pointer transition-all duration-300 hover:bg-(--color-accent) hover:text-white hover:shadow-accent-sm" href="#works">
               <Icon name="folder" size={12} />
               View My Work
             </a>
@@ -72,7 +72,7 @@ export default function About() {
         <div className={`w-[420px] md:w-[320px] shrink mt-15 ${reveal('0.15s')}`}>
           <div className="sticky top-30 lg:static">
             <img
-              className={`w-full h-[500px] lg:h-[400px] sm:h-[320px] rounded-[16px] object-cover block will-change-transform transition-all duration-600 hover:scale-[1.02] hover:rotate-1 hover:shadow-[0_12px_40px_rgba(59,130,246,0.2)] hover:brightness-105 hover:animate-none ${
+              className={`w-full h-[500px] lg:h-[400px] sm:h-[320px] rounded-[16px] object-cover block will-change-transform transition-all duration-600 hover:scale-[1.02] hover:rotate-1 hover:shadow-accent-lg hover:brightness-105 hover:animate-none ${
                 visible ? 'animate-portrait-float' : ''
               }`}
               src={aboutMe}

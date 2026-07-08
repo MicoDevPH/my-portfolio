@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import { useInView } from '../hooks/useInView'
 import { educationData, experienceData, leadershipData } from '../constants/timelineData'
+import TabButton from './TabButton'
 
 const TAB_DATA = { education: educationData, experience: experienceData, leadership: leadershipData }
 const TABS = ['education', 'experience', 'leadership']
@@ -35,17 +36,9 @@ export default function Timeline({ timelineTab, onTabChange }) {
         </p>
         <div className={`flex justify-center gap-3 mb-12 ${reveal('0.2s')}`}>
           {TABS.map((tab) => (
-            <button
-              key={tab}
-              className={`font-sans text-sm font-medium tracking-[0.03em] px-7 py-2.5 rounded-[10px] border cursor-pointer transition-all duration-250 sm:px-5 sm:py-2 sm:text-[13px] ${
-                timelineTab === tab
-                  ? 'bg-(--color-accent) text-white border-(--color-accent)'
-                  : 'bg-(--color-social-bg) text-(--color-text) border-(--color-border) hover:text-(--color-accent) hover:border-(--color-accent)'
-              }`}
-              onClick={() => handleTabChange(tab)}
-            >
+            <TabButton key={tab} active={timelineTab === tab} onClick={() => handleTabChange(tab)}>
               {TAB_LABELS[tab]}
-            </button>
+            </TabButton>
           ))}
         </div>
         <div className={`relative ${reveal('0.3s')}`}>
