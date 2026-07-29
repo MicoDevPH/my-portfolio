@@ -6,9 +6,6 @@ function lerp(a, b, t) {
 
 export function useScrollAnimation(sectionRef, textWrapperRef) {
   useEffect(() => {
-    const isFilipino = document.documentElement.getAttribute('data-theme') === 'filipino'
-    if (isFilipino) return
-
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     let rafId
