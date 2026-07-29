@@ -34,7 +34,7 @@ export default function About() {
             <em className="not-italic animate-glass-shimmer" style={gradientText}>Mico Nakase</em>
           </h2>
           <div className={`flex gap-3 mb-4 ${reveal()}`}>
-              <a className="inline-flex items-center gap-2 px-7 py-2.5 rounded-lg text-[11px] font-medium tracking-[0.14em] uppercase no-underline whitespace-nowrap bg-(--color-accent) text-white cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-accent-sm" href="/resume.pdf" target="_blank" download>
+              <a className="inline-flex items-center gap-2 px-7 py-2.5 rounded-lg text-[11px] font-medium tracking-[0.14em] uppercase no-underline whitespace-nowrap bg-(--color-accent) text-white cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-accent-sm" href="/Nakase_Mico_CV.pdf" target="_blank" download>
               <Icon name="arrowDown" size={12} />
               Download CV
             </a>
