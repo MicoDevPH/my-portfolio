@@ -5,50 +5,47 @@ export default function WorkDetail({ work, onBack }) {
   if (!work) return null
 
   return (
-    <div className="min-h-screen bg-(--color-bg) overflow-y-auto">
-      <div className="relative w-full max-h-[60vh] overflow-hidden md:max-h-[40vh]">
-        <button
-          className="absolute top-5 left-5 z-10 flex items-center justify-center w-9 h-9 rounded-full border border-white/20 bg-black/60 text-white cursor-pointer transition-[background] duration-200 hover:bg-black/85"
-          onClick={onBack}
-          aria-label="Back"
-        >
-          <Icon name="chevronLeft" size={20} />
+    <div className="min-h-screen halftone overflow-y-auto">
+      <div className="max-w-[900px] mx-auto px-6 pt-8 pb-24 max-sm:px-4">
+        <button className="nb-btn nb-press mb-8" onClick={onBack} aria-label="Back">
+          <Icon name="chevronLeft" size={16} />
+          Back
         </button>
-        <img src={work.img} alt={work.title} className="w-full h-full object-cover block" />
-      </div>
-      <div className="max-w-[800px] mx-auto px-12 py-16 pb-30 md:px-5 md:py-10 md:pb-20">
-        <h1 className="font-heading font-black text-(--color-text-h) uppercase tracking-[-0.02em] m-0 mb-4 leading-[0.92]"
-          style={{ fontSize: 'clamp(36px, 6vw, 72px)' }}>
-          {work.title}
-        </h1>
-        <div className="flex items-center gap-2.5 mb-8 flex-wrap">
-          <span className="text-sm font-semibold text-(--color-accent) bg-(--color-accent-bg) border border-(--color-accent-border) px-4 py-1 rounded-full">{work.year}</span>
-          {work.tags?.map((tag) => (
-            <span key={tag} className="inline-flex items-center gap-1 px-3.5 py-1 rounded-full bg-(--color-social-bg) border border-(--color-border) text-(--color-text) text-xs font-medium tracking-[0.03em] whitespace-nowrap">
-              {techIcons[tag]}
-              {tag}
-            </span>
-          ))}
-        </div>
-        <p className="m-0 mb-10 text-(--color-text)" style={{ fontSize: 'clamp(16px, 1.3vw, 18px)', lineHeight: '1.85' }}>
-          {work.longDesc}
-        </p>
-        {work.features && work.features.length > 0 && (
-          <div>
-            <h2 className="font-heading font-bold text-(--color-text-h) uppercase tracking-[-0.01em] m-0 mb-6"
-              style={{ fontSize: 'clamp(22px, 2.5vw, 32px)' }}>
-              Key Features
-            </h2>
-            <ul className="list-none p-0 m-0 flex flex-col gap-4">
-              {work.features.map((f, i) => (
-                <li key={i} className="relative pl-7 text-(--color-text) before:absolute before:left-0 before:top-2 before:w-2.5 before:h-2.5 before:rounded-full before:bg-(--color-accent) before:opacity-70"
-                  style={{ fontSize: 'clamp(15px, 1.1vw, 17px)', lineHeight: '1.65' }}>
-                  {f}
-                </li>
+
+        <div className="nb-box shadow-brutal-lg overflow-hidden">
+          <img src={work.img} alt={work.title} className="w-full max-h-[60vh] object-cover block border-b-[3px] border-(--color-ink)" />
+          <div className="p-10 max-sm:p-5">
+            <h1 className="font-display font-bold uppercase text-(--color-text) m-0 mb-5 leading-[0.95]" style={{ fontSize: 'clamp(34px, 6vw, 72px)' }}>
+              {work.title}
+            </h1>
+            <div className="flex items-center gap-2.5 mb-8 flex-wrap">
+              {work.year && <span className="nb-chip bg-(--color-yellow) text-(--color-on-accent)">{work.year}</span>}
+              {work.genre && <span className="nb-chip">{work.genre}</span>}
+              {work.tags?.map((tag) => (
+                <span key={tag} className="nb-chip">
+                  {techIcons[tag]}
+                  {tag}
+                </span>
               ))}
-            </ul>
+            </div>
+            <p className="m-0 mb-10 text-(--color-text)" style={{ fontSize: 'clamp(16px, 1.3vw, 18px)', lineHeight: 1.85 }}>
+              {work.longDesc}
+            </p>
+            {work.features?.length > 0 && (
+              <div className="nb-dialog p-7 max-sm:p-5">
+                <h2 className="nb-eyebrow text-(--color-text) m-0 mb-6">Key Features</h2>
+                <ul className="list-none p-0 m-0 flex flex-col gap-4">
+                  {work.features.map((f) => (
+                    <li key={f} className="flex gap-3 text-(--color-text)" style={{ fontSize: 'clamp(15px, 1.1vw, 17px)', lineHeight: 1.6 }}>
+                      <span className="font-pixel text-[10px] text-(--color-red) pt-1.5 shrink-0" aria-hidden="true">▶</span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   )

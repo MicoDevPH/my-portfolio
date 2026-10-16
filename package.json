@@ -11,11 +11,9 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
-    "@fontsource-variable/science-gothic": "^5.2.1",
+    "@fontsource-variable/pixelify-sans": "^5.3.0",
     "@fontsource-variable/space-grotesk": "^5.2.10",
-    "@fontsource/bowlby-one-sc": "^5.2.8",
-    "@fontsource/dela-gothic-one": "^5.2.7",
-    "@fontsource/yuji-syuku": "^5.2.7",
+    "@fontsource/press-start-2p": "^5.3.0",
     "@tailwindcss/vite": "^4.3.1",
     "clsx": "^2.1.1",
     "culori": "^4.0.2",

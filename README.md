@@ -22,7 +22,7 @@ Personal portfolio website for **Full Stack & Generative AI Developer** and **mu
 - **Loading screen** — MLN. logo entrance with column-reveal animation; logo flies to navbar on dismiss
 - **Dual‑theme system** — Toggle between Japanese (sakura, red/white/pink) and Filipino (jeepney, blue/red/yellow) themes; preference persisted in `localStorage`
 - **Hero** — Animated text entrance (MICO slides left, NAKASE slides right) + scroll‑driven 3D perspective exit (600vh)
-- **About** — Bio, role highlights (Prosperna intern, Truchorus performer), stats, CV download link
+- **About** — Bio, role highlights (Junior AI Engineer at Prosperna, Truchorus performer), stats, CV download link
 - **Works** — Tabbed carousel (Programming / Music) with prev/next navigation; music tracks include inline audio player (play, pause, scrub, volume)
 - **Work Detail** — Full‑screen overlay with hero image, description, tags, and key features per project
 - **Timeline** — Three‑tab timeline (Education, Experience, Leadership) with scroll progress bar

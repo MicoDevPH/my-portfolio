@@ -1,180 +1,221 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'Druk';
-  src: url('./assets/Druk-Heavy-Trial.otf') format('opentype');
-  font-weight: 900;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Druk';
-  src: url('./assets/Druk-Medium-Trial.otf') format('opentype');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'TD Pinoy';
-  src: url('./assets/TD Pinoy.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-}
-
+/* ====== Design tokens — Pokémon neo-brutalism ====== */
 
 @theme {
-  --color-text: oklch(0.503 0.202 20.716);
-  --color-text-h: oklch(0.503 0.202 20.716);
-  --color-bg: oklch(1 0 0);
-  --color-border: oklch(0.869 0.032 17.775);
-  --color-code-bg: oklch(0.978 0.011 17.34);
-  --color-accent: oklch(0.503 0.202 20.716);
-  --color-accent-bg: oklch(0.503 0.202 20.716 / 0.1);
-  --color-accent-border: oklch(0.503 0.202 20.716 / 0.4);
-  --color-social-bg: oklch(0.961 0.009 17.306 / 0.8);
-  --color-nav-bg: oklch(1 0 0 / 0.88);
-  --color-nav-border: oklch(0.503 0.202 20.716 / 0.08);
-  --color-green: oklch(0.723 0.219 149.579);
-  --color-red: oklch(0.637 0.237 25.331);
-  --color-menu-overlay: oklch(1 0 0 / 0.95);
+  --color-bg: #fffbea;
+  --color-surface: #ffffff;
+  --color-sunken: #f4efd9;
+  --color-ink: #111111;
+  --color-text: #1a1a1a;
+  --color-muted: #4d4a42;
+  --color-yellow: #ffd60a;
+  --color-yellow-deep: #f2b705;
+  --color-red: #e3350d;
+  --color-blue: #2a5bd7;
+  --color-blue-deep: #1b3d99;
+  --color-green: #2fb35a;
+  --color-on-accent: #111111;
+  --color-dots: #11111114;
 
   --font-sans: 'Space Grotesk Variable', system-ui, sans-serif;
-  --font-serif: 'Dela Gothic One', serif;
-  --font-heading: 'Dela Gothic One', 'Druk', system-ui, sans-serif;
-  --font-variable: 'Dela Gothic One', serif;
+  --font-display: 'Pixelify Sans Variable', 'Press Start 2P', system-ui, sans-serif;
+  --font-pixel: 'Press Start 2P', ui-monospace, monospace;
   --font-mono: ui-monospace, Consolas, monospace;
 
-  --animate-logo-in: logo-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --shadow-brutal-sm: 2px 2px 0 0 var(--color-ink);
+  --shadow-brutal: 4px 4px 0 0 var(--color-ink);
+  --shadow-brutal-lg: 8px 8px 0 0 var(--color-ink);
+  --shadow-brutal-yellow: 4px 4px 0 0 var(--color-yellow);
 
-  --animate-menu-fade: menu-fade-in 0.3s ease;
-  --animate-portrait-float: portrait-float 5s ease-in-out infinite;
-  --animate-glass-shimmer: glass-shimmer 12s ease-in-out infinite;
-  --animate-dot-pulse: dot-pulse 1.2s ease-in-out infinite;
-  --animate-ganymede-spin: ganymede-spin 3s linear infinite;
-  --animate-ganymede-float: ganymede-float 3s ease-in-out infinite;
-  --animate-ganymede-prompt-in: ganymede-prompt-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  --animate-ganymede-prompt-out: ganymede-prompt-out 0.3s ease-in forwards;
-  --animate-ganymede-slide-up: ganymede-slide-up 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  --animate-ganymede-msg-in: ganymede-msg-in 0.25s ease;
-  --animate-ganymede-dot-bounce: ganymede-dot-bounce 1.2s ease-in-out infinite;
-
-  --shadow-accent-sm: 0 4px 20px oklch(0.503 0.202 20.716 / 0.3);
-  --shadow-accent-md: 0 8px 32px oklch(0.503 0.202 20.716 / 0.4);
-  --shadow-accent-lg: 0 12px 40px oklch(0.503 0.202 20.716 / 0.2);
-  --shadow-accent-btn: 0 4px 20px oklch(0.503 0.202 20.716 / 0.35);
-  --shadow-accent-hover: 0 2px 12px oklch(0.503 0.202 20.716 / 0.4);
-  --shadow-accent-xl: 0 6px 28px oklch(0.503 0.202 20.716 / 0.5);
+  --animate-logo-in: logo-in 0.6s steps(6) both;
+  --animate-menu-fade: menu-fade-in 0.2s steps(4);
+  --animate-blink: blink 1s steps(1) infinite;
+  --animate-bob: bob 2.4s steps(4) infinite;
+  --animate-wobble: wobble 1.2s ease-in-out infinite;
+  --animate-dot-pulse: dot-pulse 1.2s steps(3) infinite;
+  --animate-ganymede-float: bob 3s steps(6) infinite;
+  --animate-ganymede-prompt-in: ganymede-prompt-in 0.3s steps(4);
+  --animate-ganymede-prompt-out: ganymede-prompt-out 0.2s steps(3) forwards;
+  --animate-ganymede-slide-up: ganymede-slide-up 0.25s steps(5);
+  --animate-ganymede-msg-in: ganymede-msg-in 0.2s ease;
+  --animate-ganymede-dot-bounce: dot-pulse 1.2s steps(3) infinite;
 }
 
-[data-theme="filipino"] {
-  --color-text: oklch(1 0 0);
-  --color-text-h: oklch(0.89495 0.16357 94.62458);
-  --color-bg: oklch(0.45957 0.17019 258.00709);
-  --color-border: oklch(0.55614 0.22503 24.18079 / 0.3);
-  --color-code-bg: oklch(0.55614 0.22503 24.18079 / 0.12);
-  --color-accent: oklch(0.89495 0.16357 94.62458);
-  --color-accent-bg: oklch(0.89495 0.16357 94.62458 / 0.1);
-  --color-accent-border: oklch(0.89495 0.16357 94.62458 / 0.4);
-  --color-social-bg: oklch(0.55614 0.22503 24.18079 / 0.6);
-  --color-nav-bg: oklch(0.45957 0.17019 258.00709 / 0.88);
-  --color-nav-border: oklch(1 0 0 / 0.15);
-  --color-green: oklch(0.723 0.219 149.579);
-  --color-red: oklch(0.637 0.237 25.331);
-  --color-menu-overlay: oklch(0.25 0.1 258.00709 / 0.95);
+:root[data-theme='dark'] {
+  --color-bg: #15151b;
+  --color-surface: #202029;
+  --color-sunken: #1a1a22;
+  --color-ink: #ece8d9;
+  --color-text: #ece8d9;
+  --color-muted: #b2ad9c;
+  --color-yellow: #ffd60a;
+  --color-yellow-deep: #ffc300;
+  --color-red: #ff5a36;
+  --color-blue: #5b8cff;
+  --color-blue-deep: #2a5bd7;
+  --color-green: #4fd27a;
+  --color-on-accent: #111111;
+  --color-dots: #ffffff10;
 
-  --hero-scale-y: 1;
-
-  --font-serif: 'TD Pinoy', serif;
-  --font-heading: 'TD Pinoy', 'Druk', system-ui, sans-serif;
-  --font-variable: 'TD Pinoy', serif;
+  color-scheme: dark;
 }
+
+/* ====== Reusable neo-brutalist pieces ====== */
+
+@utility nb-box {
+  background: var(--color-surface);
+  border: 3px solid var(--color-ink);
+  box-shadow: var(--shadow-brutal);
+}
+
+@utility nb-press {
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease, color 0.12s ease;
+  &:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 0 var(--color-ink);
+  }
+  &:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 0 var(--color-ink);
+  }
+}
+
+@utility nb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.4rem;
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 3px solid var(--color-ink);
+  box-shadow: var(--shadow-brutal);
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@utility nb-btn-yellow {
+  background: var(--color-yellow);
+  color: var(--color-on-accent);
+}
+
+@utility nb-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  line-height: 1.6;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 2px solid var(--color-ink);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+@utility nb-eyebrow {
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+@utility nb-input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 3px solid var(--color-ink);
+  border-radius: 0;
+  outline: none;
+  box-sizing: border-box;
+  transition: box-shadow 0.12s ease, transform 0.12s ease;
+
+  &::placeholder {
+    color: var(--color-muted);
+    opacity: 0.8;
+  }
+  &:focus {
+    box-shadow: var(--shadow-brutal-yellow), 7px 7px 0 0 var(--color-ink);
+    transform: translate(-2px, -2px);
+  }
+}
+
+/* Game Boy style dialog box — double border */
+@utility nb-dialog {
+  position: relative;
+  background: var(--color-surface);
+  border: 3px solid var(--color-ink);
+  box-shadow:
+    inset 0 0 0 4px var(--color-surface),
+    inset 0 0 0 6px var(--color-ink),
+    var(--shadow-brutal);
+}
+
+@utility halftone {
+  background-color: var(--color-bg);
+  background-image: radial-gradient(circle, var(--color-dots) 1.6px, transparent 2px);
+  background-size: 22px 22px;
+}
+
+/* ====== Base ====== */
 
 html {
   zoom: 0.8;
   cursor: none;
   scroll-behavior: smooth;
   font-size: 18px;
-  --hero-scale-y: 1.3;
   --cursor-zoom-inverse: 1.25;
   background: var(--color-bg);
   scrollbar-width: none;
-}
-
-input, textarea, select, [contenteditable] {
-  cursor: auto;
 }
 
 html::-webkit-scrollbar {
   display: none;
 }
 
-html[data-theme="filipino"] {
-  color-scheme: dark;
+/* Hide the system cursor everywhere — buttons/links set `cursor: pointer`
+   on themselves, which would otherwise show the OS hand over the pixel one */
+html *,
+html *::before,
+html *::after {
+  cursor: none !important;
+}
+
+input:not([type='range']),
+textarea,
+[contenteditable] {
+  cursor: text !important;
 }
 
 body {
   background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
   margin: 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* ====== Custom Cursor ====== */
-
-.cursor-shape,
-.cursor-ring {
-  position: fixed;
-  pointer-events: none;
-  z-index: 99999;
-  will-change: left, top, width, height, opacity;
+::selection {
+  background: var(--color-yellow);
+  color: var(--color-on-accent);
 }
-
-.cursor-shape {
-  width: 20px;
-  height: 20px;
-  transition: width 0.25s ease, height 0.25s ease, opacity 0.2s ease;
-}
-
-.cursor-shape[data-cursor-theme="japanese"] {
-  width: 14px;
-  height: 14px;
-  background: radial-gradient(circle at 40% 40%, oklch(0.844 0.091 2.808) 0%, var(--color-accent) 100%);
-  border-radius: 150% 0 150% 0 / 50% 50% 50% 50%;
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-.cursor-shape[data-cursor-theme="filipino"] {
-  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,0 61,35 98,35 68,57 79,91 50,70 21,91 32,57 2,35 39,35' fill='%23FCD116' stroke='%23000' stroke-width='5' stroke-linejoin='round'/></svg>") center/contain no-repeat;
-  border-radius: 0;
-  transform: translate(-50%, -50%);
-}
-
-.cursor-ring {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 2px solid var(--color-accent);
-  background: color-mix(in oklab, var(--color-accent) 6%, transparent);
-  box-shadow: 0 0 12px color-mix(in oklab, var(--color-accent) 12%, transparent);
-  transform: translate(-50%, -50%);
-  z-index: 99998;
-  transition: width 0.25s ease, height 0.25s ease, opacity 0.2s ease;
-}
-
-.cursor-ring[data-cursor-theme="filipino"] {
-  border-color: oklch(0.872 0.176 93.473);
-  background: color-mix(in oklab, oklch(0.872 0.176 93.473) 6%, transparent);
-  box-shadow: 0 0 12px color-mix(in oklab, oklch(0.872 0.176 93.473) 12%, transparent);
-}
-
-.cursor-ring--hover {
-  width: 48px;
-  height: 48px;
-  background: transparent;
-  border-width: 2px;
-}
-
-/* ====== End Cursor ====== */
-
-
 
 @media (max-width: 1024px) {
   html {
@@ -205,16 +246,131 @@ body {
 
   @media (max-width: 640px) {
     padding-inline: 16px;
-  }
-
-  @media (max-width: 380px) {
-    padding-inline: 10px;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 
+/* ====== Pokéball (pure CSS) ====== */
+
+.pokeball {
+  position: relative;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  border: 0.08em solid #111;
+  background: linear-gradient(to bottom, var(--color-red) 0 44%, #111 44% 56%, #fff 56% 100%);
+  box-sizing: border-box;
+}
+
+.pokeball::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.32em;
+  height: 0.32em;
+  border-radius: 50%;
+  background: #fff;
+  border: 0.07em solid #111;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+}
+
+/* ====== Custom Cursor ====== */
+
+/* Hotspot sits at the arrow tip (top-left of the container) */
+.cursor {
+  position: fixed;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 99999;
+  will-change: left, top, opacity;
+  transition: opacity 0.2s ease;
+}
+
+.cursor svg {
+  position: absolute;
+  display: block;
+  filter: drop-shadow(3px 3px 0 var(--color-ink));
+  transition: transform 0.1s steps(2), opacity 0.1s steps(2);
+}
+
+.cursor-arrow {
+  left: -1px;
+  top: -1px;
+  width: 20px;
+  height: 32px;
+  transform-origin: 0 0;
+}
+
+/* Fingertip is pixel ~4.5 of 16 across, so shift left to keep the hotspot on it */
+.cursor-hand {
+  left: -8px;
+  top: -1px;
+  width: 30px;
+  height: 32px;
+  opacity: 0;
+  transform: scale(0.6);
+  transform-origin: 8px 0;
+}
+
+/* Hovering something clickable: arrow swaps to the pointing hand */
+.cursor--pointer .cursor-arrow {
+  opacity: 0;
+  transform: scale(0.4);
+}
+
+.cursor--pointer .cursor-hand {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Pressed: squash into the shadow, like the buttons */
+.cursor--down .cursor-arrow {
+  transform: translate(2px, 2px) scale(0.92);
+}
+
+.cursor--pointer.cursor--down .cursor-hand {
+  transform: translate(2px, 2px) scale(0.92);
+}
+
+/* ====== Hero — Pokémon-logo lettering ====== */
+
+.hero-text {
+  font-family: var(--font-pixel);
+  color: var(--color-yellow);
+  -webkit-text-stroke: 0.035em var(--color-blue-deep);
+  paint-order: stroke fill;
+  text-shadow:
+    0.05em 0.05em 0 var(--color-blue-deep),
+    0.09em 0.09em 0 var(--color-ink);
+}
+
+.floater {
+  position: absolute;
+  top: -60px;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: floater-fall linear infinite;
+}
+
+.floater-0 { left: 6%;  font-size: 22px; animation-duration: 16s; animation-delay: 0s; }
+.floater-1 { left: 18%; font-size: 14px; animation-duration: 12s; animation-delay: 3s; }
+.floater-2 { left: 31%; font-size: 26px; animation-duration: 19s; animation-delay: 6s; }
+.floater-3 { left: 46%; font-size: 16px; animation-duration: 14s; animation-delay: 1.5s; }
+.floater-4 { left: 61%; font-size: 20px; animation-duration: 17s; animation-delay: 8s; }
+.floater-5 { left: 74%; font-size: 13px; animation-duration: 11s; animation-delay: 4.5s; }
+.floater-6 { left: 86%; font-size: 24px; animation-duration: 18s; animation-delay: 2s; }
+.floater-7 { left: 94%; font-size: 15px; animation-duration: 13s; animation-delay: 7s; }
+
+/* ====== Keyframes ====== */
+
 @keyframes logo-in {
-  from { opacity: 0; transform: scale(0.85) translateY(16px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes menu-fade-in {
@@ -222,173 +378,51 @@ body {
   to { opacity: 1; }
 }
 
-@keyframes portrait-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
-@keyframes glass-shimmer {
-  0% { background-position: 200% center; }
-  100% { background-position: -200% center; }
-}
-
-@keyframes dot-pulse {
-  0%, 100% { opacity: 0.25; transform: scale(0.85); }
-  50% { opacity: 1; transform: scale(1.15); }
-}
-
-@keyframes ganymede-spin {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes ganymede-float {
+@keyframes bob {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
 }
 
+@keyframes wobble {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(-18deg); }
+  40% { transform: rotate(14deg); }
+  60% { transform: rotate(-8deg); }
+  80% { transform: rotate(0deg); }
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+
+@keyframes floater-fall {
+  0% { transform: translate3d(0, -10vh, 0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.9; }
+  100% { transform: translate3d(-20px, 135vh, 0) rotate(360deg); opacity: 0; }
+}
+
 @keyframes ganymede-prompt-in {
-  0% { opacity: 0; transform: translateY(-50%) translateX(12px) scale(0.9); }
-  60% { opacity: 1; transform: translateY(-50%) translateX(-2px) scale(1.02); }
-  100% { opacity: 1; transform: translateY(-50%) translateX(0) scale(1); }
+  from { opacity: 0; transform: translateY(-50%) translateX(12px); }
+  to { opacity: 1; transform: translateY(-50%) translateX(0); }
 }
 
 @keyframes ganymede-prompt-out {
-  to { opacity: 0; transform: translateY(-50%) translateX(16px) scale(0.9); }
+  to { opacity: 0; transform: translateY(-50%) translateX(16px); }
 }
 
 @keyframes ganymede-slide-up {
-  from { opacity: 0; transform: translateY(16px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes ganymede-msg-in {
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
-@keyframes ganymede-dot-bounce {
-  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
-  40% { transform: translateY(-4px); opacity: 0.9; }
-}
-
-/* ====== Jeepney Signboard Hero (Filipino theme) ====== */
-
-@keyframes jeepney-flicker {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(0.92); }
-}
-
-[data-theme="filipino"] #hero .hero-inner {
-  background:
-    repeating-linear-gradient(
-      45deg,
-      transparent 0 28px,
-      oklch(0 0 0 / 0.12) 28px 30px
-    ),
-    oklch(0.428 0.172 259.702);
-}
-
-[data-theme="filipino"] #hero .hero-text {
-  font-family: 'TD Pinoy', 'Druk', sans-serif !important;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  text-shadow:
-    3px 3px 0 oklch(0 0 0),
-    6px 6px 0 oklch(0 0 0 / 0.45);
-  filter: drop-shadow(0 0 22px oklch(0.893 0.167 94.547 / 0.35));
-}
-
-[data-theme="filipino"] #hero .hero-mico {
-  color: oklch(0.893 0.167 94.547) !important;
-}
-
-[data-theme="filipino"] #hero .hero-nakase {
-  color: oklch(1 0 0) !important;
-  text-shadow:
-    3px 3px 0 var(--color-accent),
-    6px 6px 0 oklch(0 0 0 / 0.5);
-}
-
-[data-theme="filipino"] #hero .hero-star {
-  opacity: 1 !important;
-  color: oklch(0.893 0.167 94.547);
-  font-size: 2.5rem;
-  text-shadow: 0 0 12px oklch(0.893 0.167 94.547 / 0.8), 2px 2px 0 oklch(0 0 0);
-  animation: jeepney-flicker 2.4s ease-in-out infinite;
-}
-
-[data-theme="filipino"] #hero .hero-star:nth-of-type(2) { animation-delay: 0.3s; }
-[data-theme="filipino"] #hero .hero-star:nth-of-type(3) { animation-delay: 0.6s; }
-[data-theme="filipino"] #hero .hero-star:nth-of-type(4) { animation-delay: 0.9s; }
-
-/* ====== Polka Dot Hero (Japan theme - default) ====== */
-
-html:not([data-theme="filipino"]) #hero .hero-inner {
-  background-color: var(--color-bg);
-  background-image:
-    radial-gradient(circle, color-mix(in oklab, var(--color-accent) 18%, transparent) 2px, transparent 2.5px);
-  background-size: 28px 28px;
-}
-
-/* ====== Floating Petals (both themes) ====== */
-
-@keyframes petal-fall {
-  0% {
-    transform: translate3d(0, -10vh, 0) rotate(0deg);
-    opacity: 0;
-  }
-  10% { opacity: 1; }
-  50% {
-    transform: translate3d(40px, 50vh, 0) rotate(220deg);
-  }
-  90% { opacity: 1; }
-  100% {
-    transform: translate3d(-30px, 110vh, 0) rotate(540deg);
-    opacity: 0;
-  }
-}
-
-.petal {
-  position: absolute;
-  top: -40px;
-  width: 14px;
-  height: 14px;
-  opacity: 0;
-  will-change: transform, opacity;
-  animation: petal-fall linear infinite;
-}
-
-/* Sakura petals — Japan (default) */
-html:not([data-theme="filipino"]) .petal {
-  background: radial-gradient(circle at 40% 40%, oklch(0.903 0.053 2.191) 0%, oklch(0.779 0.139 1.966) 70%, oklch(0.721 0.183 5.220) 100%);
-  border-radius: 150% 0 150% 0 / 50% 50% 50% 50%;
-  box-shadow: 0 0 4px oklch(0.779 0.139 1.966 / 0.5);
-}
-
-/* Philippine flag stars — Filipino theme */
-[data-theme="filipino"] .petal {
-  width: 18px;
-  height: 18px;
-  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><polygon points='12,2 14.35,8.76 21.51,8.91 15.80,13.24 17.88,20.09 12,16 6.12,20.09 8.20,13.24 2.49,8.91 9.65,8.76' fill='%23FCD116'/></svg>") center/contain no-repeat;
-  border-radius: 0;
-  box-shadow: none;
-  clip-path: none;
-  filter: drop-shadow(0 0 6px oklch(0.872 0.176 93.473 / 0.7));
-}
-
-.petal-0  { left: 4%;  animation-duration: 11s; animation-delay: 0s; }
-.petal-1  { left: 11%; animation-duration: 14s; animation-delay: 2s; }
-.petal-2  { left: 18%; animation-duration: 9s;  animation-delay: 4s; }
-.petal-3  { left: 25%; animation-duration: 13s; animation-delay: 1s; }
-.petal-4  { left: 32%; animation-duration: 12s; animation-delay: 6s; }
-.petal-5  { left: 39%; animation-duration: 15s; animation-delay: 3s; }
-.petal-6  { left: 46%; animation-duration: 10s; animation-delay: 5s; }
-.petal-7  { left: 53%; animation-duration: 13s; animation-delay: 7s; }
-.petal-8  { left: 60%; animation-duration: 11s; animation-delay: 0.5s; }
-.petal-9  { left: 67%; animation-duration: 14s; animation-delay: 2.5s; }
-.petal-10 { left: 74%; animation-duration: 9s;  animation-delay: 4.5s; }
-.petal-11 { left: 81%; animation-duration: 12s; animation-delay: 1.5s; }
-.petal-12 { left: 88%; animation-duration: 15s; animation-delay: 6.5s; }
-.petal-13 { left: 95%; animation-duration: 10s; animation-delay: 3.5s; }
-.petal-14 { left: 8%;  animation-duration: 13s; animation-delay: 8s; width: 10px; height: 10px; }
-.petal-15 { left: 70%; animation-duration: 16s; animation-delay: 5.5s; width: 18px; height: 18px; }

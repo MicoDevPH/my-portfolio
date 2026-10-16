@@ -1,72 +1,106 @@
 import { useInView } from '../hooks/useInView'
-import { calcDuration } from '../hooks/useDuration'
-import { frontendTools, backendTools, toolsAndVc } from '../constants/skillsData'
+import { revealClass, staggerStyle } from '../lib/utils'
+import { calcLevel, formatSince } from '../hooks/useDuration'
+import { partyTools, boxGroups } from '../constants/skillsData'
+import SectionHeading from './SectionHeading'
 
-function BentoSection({ title, tools }) {
+// Featured card — like a slot on the Pokémon party screen
+function PartyCard({ tool }) {
   return (
-    <>
-      <p className="col-span-full text-[13px] font-semibold tracking-[0.2em] uppercase text-(--color-accent) m-0 mb-3 mt-10 first:mt-0 sm:text-[11px] sm:mb-2 sm:mt-8">
-        {title}
-      </p>
-      {tools.map((tool) => {
-        const duration = calcDuration(tool.startDate)
-        return (
-          <div key={tool.name} className="group flex flex-col gap-3 px-4 py-3.5 rounded-xl border border-(--color-border) bg-(--color-social-bg) transition-all duration-300 hover:border-(--color-accent) hover:shadow-[0_2px_12px_var(--color-accent-bg)] hover:scale-[1.03] hover:z-10 relative sm:px-3 sm:py-2 sm:gap-2">
-            <div className="flex items-center gap-3 transition-all duration-300 group-hover:gap-4 sm:gap-2">
-              <img src={tool.icon} alt={tool.name} className="w-6 h-6 transition-all duration-300 group-hover:w-8 group-hover:h-8 sm:w-5 sm:h-5" />
-              <span className="text-[14px] font-medium text-(--color-text-h) whitespace-nowrap transition-all duration-300 group-hover:text-[17px] sm:text-xs">{tool.name}</span>
-            </div>
-            <div className="grid grid-rows-[0fr] transition-all duration-300 group-hover:grid-rows-[1fr]">
-              <div className="overflow-hidden">
-                <div className="flex flex-wrap items-center gap-1.5 pt-2">
-                  {tool.category && (
-                    <span className="text-[10px] font-medium px-2 py-0.5 rounded-full border border-(--color-accent) text-(--color-accent) uppercase tracking-[0.05em] transition-all duration-300 group-hover:text-[11px] sm:text-[9px]">
-                      {tool.category}
-                    </span>
-                  )}
-                  {tool.proficiency && (
-                    <span className="text-[10px] font-medium text-(--color-text) opacity-70 transition-all duration-300 group-hover:text-[11px] sm:text-[9px]">
-                      {tool.proficiency}
-                    </span>
-                  )}
-                  {duration && (
-                    <span className="text-[10px] font-semibold text-(--color-accent) ml-auto transition-all duration-300 group-hover:text-[11px] sm:text-[9px]">
-                      {duration}
-                    </span>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        )
-      })}
-    </>
+    <div className="group h-full flex items-center gap-4 px-4 py-4 nb-box transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal-lg hover:bg-(--color-yellow) hover:text-(--color-on-accent)">
+      <span className="flex items-center justify-center w-14 h-14 bg-white border-[3px] border-(--color-ink) shrink-0">
+        <img src={tool.icon} alt="" className="w-9 h-9" loading="lazy" />
+      </span>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-baseline justify-between gap-2">
+          <span className="font-display font-bold uppercase text-[20px] leading-tight truncate">{tool.name}</span>
+          <span className="font-pixel text-[10px] shrink-0">
+            Lv.<span className="text-[14px]">{calcLevel(tool.startDate)}</span>
+          </span>
+        </div>
+        <div className="flex items-center justify-between gap-2 mt-2">
+          <span className="nb-chip text-[7px] bg-(--color-surface)">{tool.category}</span>
+          <span className="font-pixel text-[7px] uppercase text-(--color-muted) group-hover:text-(--color-on-accent)">
+            Since {formatSince(tool.startDate)}
+          </span>
+        </div>
+      </div>
+    </div>
   )
 }
 
-export default function Skills() {
-  const visible = useInView('skills')
+// Compact chip for everything stored in the PC Box
+function BoxChip({ tool }) {
+  return (
+    <span
+      className="flex items-center gap-2 px-3 py-2 border-2 border-(--color-ink) bg-(--color-surface) text-[14px] font-semibold transition-colors duration-150 hover:bg-(--color-yellow) hover:text-(--color-on-accent)"
+      title={`${tool.category} · since ${formatSince(tool.startDate)}`}
+    >
+      <img src={tool.icon} alt="" className="w-[18px] h-[18px]" loading="lazy" />
+      {tool.name}
+      <span className="font-pixel text-[7px] opacity-60">Lv.{calcLevel(tool.startDate)}</span>
+    </span>
+  )
+}
 
-  const reveal = (delay = '0s') =>
-    `transition-all duration-600 [transition-timing-function:cubic-bezier(0.4,0,0.2,1)] [transition-delay:${delay}] ${
-      visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[30px]'
-    }`
+// Stagger order for the box chips: continues after the 6 party cards
+const boxRows = boxGroups
+  .map((g) => ({ ...g, stored: g.tools.filter((t) => !t.party) }))
+  .filter((g) => g.stored.length > 0)
+let chipOrder = partyTools.length
+for (const g of boxRows) g.stored = g.stored.map((t) => ({ ...t, order: chipOrder++ }))
+const boxCount = boxRows.reduce((n, g) => n + g.stored.length, 0)
+
+export default function Skills() {
+  const visible = useInView('skills', 0.1)
 
   return (
-    <section id="skills" className="w-full py-30 lg:py-20 sm:py-15 box-border overflow-hidden">
+    <section id="skills" className="w-full py-20 lg:py-30 box-border overflow-hidden bg-(--color-sunken) border-y-[3px] border-(--color-ink)">
       <div className="container text-left">
-        <h2 className={`font-heading font-black text-(--color-text-h) uppercase leading-[0.88] tracking-[-0.02em] m-0 mt-10 mb-6 ${reveal()}`}
-          style={{ fontSize: 'clamp(40px, 7vw, 100px)' }}>
-          Tech <em className="text-(--color-accent) not-italic">Stack</em>
-        </h2>
-        <p className={`text-(--color-text) max-w-[620px] m-0 mb-14 sm:mb-8 ${reveal('0.1s')}`}
-          style={{ fontSize: 'clamp(16px, 1.4vw, 19px)', lineHeight: '1.75' }}>
-          Tools and technologies I work with.
+        <SectionHeading
+          className={revealClass(visible)}
+          visible={visible}
+          number={4}
+          eyebrow="Skills"
+          title="Tech"
+          accent="Stack"
+          description="My party of six, plus everything else in the PC Box. Lv. = months I've been using it."
+        />
+
+        {/* Party: the core day-to-day stack */}
+        <p className={`nb-eyebrow text-(--color-text) m-0 mt-14 mb-5 flex items-center gap-3 ${revealClass(visible, '0.1s')}`}>
+          <span className="pokeball text-[14px]" aria-hidden="true" />
+          Party
+          <span className="flex-1 border-t-[3px] border-(--color-ink)" aria-hidden="true" />
         </p>
-        <div className={`grid cq-container grid-cols-4 @lg:grid-cols-3 @md:grid-cols-2 @sm:grid-cols-2 gap-4 ${reveal('0.2s')}`}>
-          <BentoSection title="Frontend" tools={frontendTools} />
-          <BentoSection title="Backend" tools={backendTools} />
-          <BentoSection title="Developer Tooling" tools={toolsAndVc} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {partyTools.map((tool, i) => (
+            <div key={tool.name} className={revealClass(visible, '0s', 'pop')} style={staggerStyle(i, 70)}>
+              <PartyCard tool={tool} />
+            </div>
+          ))}
+        </div>
+
+        {/* PC Box: everything else, compact */}
+        <div className={`mt-14 border-[3px] border-(--color-ink) bg-(--color-surface) shadow-brutal ${revealClass(visible, '0.3s')}`}>
+          <div className="flex items-center justify-between gap-3 px-5 py-3 bg-(--color-ink) text-(--color-bg)">
+            <span className="font-pixel text-[11px] uppercase">PC Box</span>
+            <span className="font-pixel text-[8px] uppercase text-(--color-yellow)">{boxCount} stored</span>
+          </div>
+          <div className="px-5 py-6 flex flex-col gap-6">
+            {boxRows.map((group) => (
+              <div key={group.title} className="flex flex-col md:flex-row md:items-start gap-3 md:gap-6">
+                <span className="nb-eyebrow text-(--color-text) md:w-[110px] md:pt-3 shrink-0">{group.title}</span>
+                <div className="flex flex-wrap gap-2.5">
+                  {group.stored.map((tool) => (
+                    <span key={tool.name} className={revealClass(visible, '0s', 'pop')} style={staggerStyle(tool.order, 25, 900)}>
+                      <BoxChip tool={tool} />
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -25,7 +25,7 @@ export function useScrollAnimation(sectionRef, textWrapperRef) {
         ? Math.max(0, Math.min(1, (scrollY - offsetTop) / totalScroll))
         : 0
 
-      const P1_END = 0.85
+      const P1_END = 1
 
       let textScale = 0
       let textOpacity = 0
@@ -35,7 +35,8 @@ export function useScrollAnimation(sectionRef, textWrapperRef) {
 
       if (raw <= P1_END) {
         const t = raw / P1_END
-        const e = t * t * t
+        // easeInOutSine — starts moving immediately, no dead zone, gentle finish
+        const e = -(Math.cos(Math.PI * t) - 1) / 2
         textScale = lerp(1, 3, e)
         textTranslateZ = lerp(0, 150, e)
         textRotateX = lerp(0, -6, e)

@@ -4,10 +4,10 @@
 - **Middle Name:** Libunao
 - **Last Name:** Nakase
 - **Birthdate:** November 17, 2003
-- **Role:** Junior Software Engineer & Music Producer
+- **Role:** Junior AI Engineer & Music Producer
 - **Girlfriend:** Julie Ann Carpio
 - **Location:** San Pedro, Laguna, Philippines
-- **Currently:** Software Engineering Intern at Prosperna Philippines
+- **Currently:** Junior AI Engineer at Prosperna Philippines (Sep 2026 – Present); previously Full Stack & Generative AI Developer Intern there (Feb – Jul 2026)
 - **Also:** Producer & External Vice President at Truchorus Performance Company
 - **About:** I build things that look good and work well. I enjoy writing clean code just as much as producing beats — always learning, always creating.
 

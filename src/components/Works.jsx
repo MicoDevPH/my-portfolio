@@ -1,17 +1,19 @@
 import { useRef, useEffect, useState } from 'react'
 import { useInView } from '../hooks/useInView'
+import { revealClass } from '../lib/utils'
 import { techIcons } from '../constants/techIcons'
 import { programmingWorks, musicWorks } from '../constants/worksData'
 import Icon from './Icon'
 import TabButton from './TabButton'
+import SectionHeading from './SectionHeading'
 
-export default function Works({
-  worksTab,
-  onTabChange,
-  carouselIndex,
-  onPrev,
-  onNext,
-}) {
+const rangeClass =
+  'h-1.5 appearance-none bg-white/25 cursor-pointer min-w-0 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-(--color-yellow) [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-black [&::-moz-range-thumb]:w-3 [&::-moz-range-thumb]:h-3 [&::-moz-range-thumb]:rounded-none [&::-moz-range-thumb]:bg-(--color-yellow) [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-black'
+
+const arrowClass =
+  'flex items-center justify-center w-12 h-12 max-sm:w-9 max-sm:h-9 border-[3px] border-(--color-ink) bg-(--color-surface) text-(--color-text) shadow-brutal cursor-pointer shrink-0 z-3 nb-press'
+
+export default function Works({ worksTab, onTabChange, carouselIndex, onPrev, onNext, onSelectWork }) {
   const visible = useInView('works')
   const audioRef = useRef(null)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -83,27 +85,15 @@ export default function Works({
   const prevSlide = (n) => onPrev((i) => (i - 1 + n) % n)
   const nextSlide = (n) => onNext((i) => (i + 1) % n)
 
-  const revealFromLeft = (delay = '0s') =>
-    `transition-all duration-600 [transition-timing-function:cubic-bezier(0.4,0,0.2,1)] [transition-delay:${delay}] ${
-      visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-[50px]'
-    }`
-
-  const revealFromRight = (delay = '0s') =>
-    `transition-all duration-600 [transition-timing-function:cubic-bezier(0.4,0,0.2,1)] [transition-delay:${delay}] ${
-      visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-[50px]'
-    }`
+  const reveal = (delay) => revealClass(visible, delay)
 
   function renderCarousel(works, isMusic) {
     return (
-      <div className="relative flex items-center justify-center mt-14 lg:mt-10 sm:mt-8 gap-4 sm:gap-2">
-        <button
-          className="flex items-center justify-center w-11 h-11 sm:w-8 sm:h-8 rounded-full border border-(--color-border) bg-(--color-social-bg) text-(--color-text) cursor-pointer shrink-0 z-3 transition-all duration-250 hover:text-(--color-accent) hover:border-(--color-accent)"
-          onClick={() => prevSlide(works.length)}
-          aria-label="Previous"
-        >
-          <Icon name="chevronLeft" size={20} />
+      <div className="relative flex items-center justify-center mt-10 gap-4 max-sm:gap-2">
+        <button className={arrowClass} onClick={() => prevSlide(works.length)} aria-label="Previous">
+          <Icon name="chevronLeft" size={22} />
         </button>
-        <div className={`cq-container relative w-full ${isMusic ? 'max-w-[506px] aspect-square lg:max-w-[366px]' : 'max-w-[900px] aspect-video lg:max-w-[650px]'} sm:max-w-[85vw]`}>
+        <div className={`cq-container relative w-full ${isMusic ? 'max-w-[480px] aspect-square' : 'max-w-[880px] aspect-video'} max-sm:max-w-[78vw]`}>
           {works.map((work, index) => {
             const offset = (index - carouselIndex + works.length) % works.length
             let position = 'center'
@@ -119,97 +109,102 @@ export default function Works({
                 else position = 'left'
               }
             }
-            const posClasses = isMusic
-              ? position === 'center'
-                ? 'translate-x-0 scale-100 opacity-100 z-2 brightness-100 cursor-pointer'
-                : position === 'right'
-                  ? 'translate-x-[65%] scale-[0.78] opacity-70 z-1 brightness-40'
-                  : position === 'farRight'
-                    ? 'translate-x-[130%] scale-[0.65] opacity-25 z-0 brightness-30'
-                    : position === 'left'
-                      ? '-translate-x-[65%] scale-[0.78] opacity-70 z-1 brightness-40'
-                      : '-translate-x-[130%] scale-[0.65] opacity-25 z-0 brightness-30'
-              : position === 'center'
-                ? 'translate-x-0 scale-100 opacity-100 z-2 brightness-100 cursor-pointer'
-                : position === 'left'
-                  ? '-translate-x-[65%] scale-[0.78] opacity-50 z-1 brightness-40 sm:-translate-x-[55%] sm:scale-[0.75]'
-                  : 'translate-x-[65%] scale-[0.78] opacity-50 z-1 brightness-40 sm:translate-x-[55%] sm:scale-[0.75]'
+            const isCenter = position === 'center'
+            const posClasses = {
+              center: 'translate-x-0 scale-100 opacity-100 z-2 cursor-pointer',
+              right: 'translate-x-[62%] scale-[0.78] opacity-60 z-1 grayscale',
+              left: '-translate-x-[62%] scale-[0.78] opacity-60 z-1 grayscale',
+              farRight: 'translate-x-[120%] scale-[0.62] opacity-0 z-0 grayscale',
+              farLeft: '-translate-x-[120%] scale-[0.62] opacity-0 z-0 grayscale',
+            }[position]
 
             return (
               <div
                 key={work.title}
-                className={`absolute inset-0 flex items-center justify-center rounded-xl overflow-hidden transition-all duration-500 [transition-timing-function:cubic-bezier(0.4,0,0.2,1)] ${posClasses}`}
+                className={`absolute inset-0 border-[3px] border-(--color-ink) bg-(--color-surface) overflow-hidden transition-all duration-400 ${
+                  isCenter ? 'shadow-brutal-lg' : 'shadow-brutal pointer-events-none'
+                } ${posClasses}`}
+                onClick={isCenter && !isMusic ? () => onSelectWork(work) : undefined}
               >
-                <img src={work.img} alt={work.title} className="w-full h-full object-cover rounded-xl" />
-                <div className="absolute bottom-0 left-0 right-0 h-3/5 bg-linear-to-t from-[rgba(0,0,0,0.95)] to-transparent rounded-b-xl pointer-events-none z-1" />
-                <div className="absolute bottom-12 left-6 right-6 sm:bottom-[34px] sm:left-2.5 sm:right-2.5 z-2 text-left">
-                  <span className="text-white font-bold block leading-[1.2] sm:text-[11px]"
-                    style={{ fontSize: 'clamp(20px, 2vw, 28px)' }}>{work.title}</span>
-                  <span className="text-[rgba(255,255,255,0.7)] mt-1 sm:mt-0.5 line-clamp-1 sm:text-[8px]"
-                    style={{ fontSize: 'clamp(12px, 1vw, 14px)' }}>{work.desc}</span>
-                  <div className="flex flex-wrap gap-1.5 mt-2.5">
-                    {work.genre && <span className="inline-flex items-center gap-1 px-3.5 py-0.5 rounded-full text-[10px] font-medium tracking-[0.03em] whitespace-nowrap bg-[rgba(255,255,255,0.15)] border-[rgba(255,255,255,0.3)] text-white">{work.genre}</span>}
-                    {work.year && <span className="inline-flex items-center gap-1 px-3.5 py-0.5 rounded-full text-[10px] font-medium tracking-[0.03em] whitespace-nowrap bg-[rgba(100,200,255,0.12)] border-[rgba(100,200,255,0.25)] text-[rgba(100,200,255,0.9)]">{work.year}</span>}
+                <img src={work.img} alt={work.title} className="w-full h-full object-cover" />
+                <div className="absolute inset-x-0 bottom-0 h-3/4 bg-linear-to-t from-black/90 via-black/50 to-transparent pointer-events-none z-1" />
+                <div className={`absolute left-5 right-5 z-2 text-left ${isMusic ? 'bottom-14' : 'bottom-5'} max-sm:left-3 max-sm:right-3 max-sm:bottom-3`}>
+                  <span className="font-display font-bold uppercase text-white block leading-[1.1]" style={{ fontSize: 'clamp(16px, 2.4vw, 32px)' }}>
+                    {work.title}
+                  </span>
+                  <span className="text-white/80 mt-1 line-clamp-1 max-sm:hidden" style={{ fontSize: 'clamp(12px, 1vw, 15px)' }}>
+                    {work.desc}
+                  </span>
+                  <div className="flex flex-wrap gap-1.5 mt-3 max-sm:mt-1.5">
+                    {work.genre && <span className="nb-chip bg-(--color-yellow) text-black border-black">{work.genre}</span>}
+                    {work.year && <span className="nb-chip bg-white text-black border-black">{work.year}</span>}
                     {work.tags?.map((tag) => (
-                      <span key={tag} className="inline-flex items-center gap-1 px-3.5 py-0.5 rounded-full text-[10px] font-medium tracking-[0.03em] whitespace-nowrap bg-[rgba(255,255,255,0.1)] border-[rgba(255,255,255,0.15)] text-[rgba(255,255,255,0.85)]">
+                      <span key={tag} className="nb-chip bg-white text-black border-black">
                         {techIcons[tag]}
                         {tag}
                       </span>
                     ))}
                   </div>
                 </div>
-                {position === 'center' && isMusic && (
-                  <div className="absolute bottom-0 left-0 right-0 z-3 flex items-center gap-1.5 px-2.5 py-1.5 bg-linear-to-t from-[rgba(0,0,0,0.85)] to-[rgba(0,0,0,0.3)] rounded-b-xl sm:p-1 sm:gap-1">
-                    <button className="bg-none border-none text-white cursor-pointer flex items-center p-0 shrink-0" onClick={togglePlay}>
+                {isCenter && !isMusic && (
+                  <span className="absolute top-3 right-3 z-2 nb-chip bg-(--color-yellow) text-black border-black max-sm:hidden">
+                    View ▶
+                  </span>
+                )}
+                {isCenter && isMusic && (
+                  <div className="absolute bottom-0 inset-x-0 z-3 flex items-center gap-2 px-3 py-2 bg-black border-t-[3px] border-black">
+                    <button
+                      className="flex items-center justify-center w-7 h-7 bg-(--color-yellow) text-black border-2 border-white cursor-pointer shrink-0"
+                      onClick={togglePlay}
+                      aria-label={isPlaying ? 'Pause' : 'Play'}
+                    >
                       <Icon name={isPlaying ? 'pause' : 'play'} size={12} />
                     </button>
-                    <input type="range" min={0} max={duration || 0} step={0.1} value={currentTime}
-                      className="flex-1 h-1 appearance-none bg-[rgba(255,255,255,0.2)] rounded-sm cursor-pointer min-w-0 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-2.5 [&::-webkit-slider-thumb]:h-2.5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-(--color-accent) [&::-webkit-slider-thumb]:border-none [&::-moz-range-thumb]:w-2.5 [&::-moz-range-thumb]:h-2.5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-(--color-accent) [&::-moz-range-thumb]:border-none"
-                      onChange={handleSeek} />
-                    <span className="text-[rgba(255,255,255,0.7)] text-[10px] font-mono whitespace-nowrap shrink-0 sm:text-[8px]">{formatTime(currentTime)}/{formatTime(duration)}</span>
-                    <Icon name="volume" size={12} />
-                    <input type="range" min={0} max={1} step={0.01} value={volume}
-                      className="w-[50px] h-1 appearance-none bg-[rgba(255,255,255,0.2)] rounded-sm cursor-pointer shrink-0 sm:w-9 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-2.5 [&::-webkit-slider-thumb]:h-2.5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-(--color-accent) [&::-webkit-slider-thumb]:border-none [&::-moz-range-thumb]:w-2.5 [&::-moz-range-thumb]:h-2.5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-(--color-accent) [&::-moz-range-thumb]:border-none"
-                      onChange={handleVolume} />
+                    <input type="range" min={0} max={duration || 0} step={0.1} value={currentTime} className={`flex-1 ${rangeClass}`} onChange={handleSeek} aria-label="Seek" />
+                    <span className="text-white/80 text-[9px] font-pixel whitespace-nowrap shrink-0 max-sm:hidden">
+                      {formatTime(currentTime)}/{formatTime(duration)}
+                    </span>
+                    <span className="text-white shrink-0"><Icon name="volume" size={14} /></span>
+                    <input type="range" min={0} max={1} step={0.01} value={volume} className={`w-[56px] shrink-0 max-sm:w-9 ${rangeClass}`} onChange={handleVolume} aria-label="Volume" />
                   </div>
                 )}
               </div>
             )
           })}
         </div>
-        <button
-          className="flex items-center justify-center w-11 h-11 sm:w-8 sm:h-8 rounded-full border border-(--color-border) bg-(--color-social-bg) text-(--color-text) cursor-pointer shrink-0 z-3 transition-all duration-250 hover:text-(--color-accent) hover:border-(--color-accent)"
-          onClick={() => nextSlide(works.length)}
-          aria-label="Next"
-        >
-          <Icon name="chevronRight" size={20} />
+        <button className={arrowClass} onClick={() => nextSlide(works.length)} aria-label="Next">
+          <Icon name="chevronRight" size={22} />
         </button>
       </div>
     )
   }
 
   return (
-    <section id="works" className="w-full min-h-screen flex items-center justify-center py-30 lg:py-20 sm:py-15 sm:min-h-auto box-border overflow-hidden">
+    <section id="works" className="w-full min-h-screen flex items-center py-20 lg:py-30 box-border overflow-hidden bg-(--color-sunken) border-y-[3px] border-(--color-ink)">
       <div className="container text-left">
-        <h2 className={`font-heading font-black text-(--color-text-h) uppercase leading-[0.88] tracking-[-0.02em] m-0 mt-10 mb-6 lg:mb-9 sm:mb-1 ${revealFromRight()}`}
-          style={{ fontSize: 'clamp(40px, 7vw, 100px)' }}>
-          My <em className="text-(--color-accent) not-italic">Works</em>
-        </h2>
-        <p className={`text-(--color-text) m-0 mb-12 sm:mb-8 ${revealFromLeft('0.1s')}`}
-          style={{ fontSize: 'clamp(16px, 1.4vw, 19px)', lineHeight: '1.75' }}>
-          From building apps to producing beats — here's what I've been working on.
-        </p>
-        <div className={`flex justify-center gap-3 mb-12 ${revealFromRight('0.2s')}`}>
+        <SectionHeading
+          className={reveal()}
+          visible={visible}
+          number={2}
+          eyebrow="Works"
+          title="My"
+          accent="Works"
+          description="From building apps to producing beats — here's what I've been working on."
+        />
+        <div className={`flex justify-center gap-4 mt-12 ${reveal('0.15s', 'pop')}`}>
           {['programming', 'music'].map((tab) => (
             <TabButton key={tab} active={worksTab === tab} onClick={() => onTabChange(tab)}>
               {tab === 'programming' ? 'Programming' : 'Music'}
             </TabButton>
           ))}
         </div>
-        <div className={revealFromLeft('0.3s')}>
+        <div className={reveal('0.25s', 'right')}>
           {worksTab === 'programming' && renderCarousel(programmingWorks, false)}
           {worksTab === 'music' && renderCarousel(musicWorks, true)}
         </div>
+        <p className="nb-eyebrow text-center mt-10 m-0">
+          {String(carouselIndex + 1).padStart(2, '0')} / {String((worksTab === 'music' ? musicWorks : programmingWorks).length).padStart(2, '0')}
+        </p>
         <audio ref={audioRef} preload="none" />
       </div>
     </section>

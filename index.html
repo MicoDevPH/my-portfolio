@@ -2,20 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/src/assets/Icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mico Nakase | Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
     <script>
-      (function() {
+      (function () {
         try {
           var theme = localStorage.getItem('theme');
-          if (theme === 'japanese' || theme === 'filipino') {
-            document.documentElement.setAttribute('data-theme', theme);
-          }
-        } catch(e) {}
+          if (theme !== 'light' && theme !== 'dark') theme = 'light';
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
       })();
     </script>
   </head>

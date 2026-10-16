@@ -15,20 +15,21 @@ const SOCIAL_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t border-(--color-border) py-8 lg:py-6 sm:py-5 box-border">
-      <div className="container flex flex-col items-center gap-5">
-        <span className="font-serif font-semibold text-2xl text-(--color-accent) tracking-[0.06em] leading-none">
+    <footer className="w-full border-t-[3px] border-(--color-ink) bg-(--color-yellow) text-(--color-on-accent) py-10 box-border">
+      <div className="container flex flex-col items-center gap-6">
+        <span className="flex items-center gap-3 font-pixel text-[18px] leading-none">
+          <span className="pokeball text-[26px]" aria-hidden="true" />
           MLN.
         </span>
-        <div className="flex items-center gap-2 text-sm text-(--color-text) opacity-60">
+        <div className="flex flex-wrap items-center justify-center gap-3 text-sm font-semibold">
           <span>San Pedro, Laguna</span>
-          <span className="opacity-40">&middot;</span>
-          <span className="flex items-center gap-1.5 opacity-100 font-medium text-xs text-(--color-green)">
-            <span className="w-[7px] h-[7px] rounded-full bg-(--color-green) shrink-0" />
+          <span aria-hidden="true">·</span>
+          <span className="flex items-center gap-2 bg-white text-black border-2 border-black px-2.5 py-1 font-pixel text-[8px] uppercase">
+            <span className="w-2 h-2 bg-(--color-green) border border-black animate-blink" />
             Open to work
           </span>
         </div>
-        <div className="flex items-center gap-3 sm:gap-2">
+        <div className="flex flex-wrap items-center justify-center gap-3">
           {SOCIAL_LINKS.map((link) => (
             <a
               key={link.label}
@@ -36,14 +37,14 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={link.label}
-              className="group flex items-center justify-center w-10 h-10 sm:w-9 sm:h-9 rounded-full border border-(--color-border) text-(--color-text) transition-all duration-250 hover:text-(--color-accent) hover:border-(--color-accent) hover:bg-(--color-accent-bg)"
+              className="flex items-center justify-center w-11 h-11 border-[3px] border-black bg-white text-black shadow-[3px_3px_0_0_#111] transition-transform duration-150 hover:-translate-y-1 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
             >
-              <Icon name={link.icon} size={18} className="transition-transform duration-500 group-hover:animate-spin" />
+              <Icon name={link.icon} size={18} />
             </a>
           ))}
         </div>
-        <p className="text-sm text-(--color-text) opacity-60 m-0 sm:text-xs">
-          &copy; {new Date().getFullYear()} Mico Nakase. All rights reserved.
+        <p className="font-pixel text-[8px] leading-[1.8] uppercase m-0 text-center">
+          &copy; {new Date().getFullYear()} Mico Nakase · Gotta build &apos;em all
         </p>
       </div>
     </footer>

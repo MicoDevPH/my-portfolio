@@ -47,62 +47,62 @@ export default function GanymedeChat() {
   return (
     <>
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-999 w-[380px] max-h-[min(560px,calc(100vh-128px))] h-[min(560px,calc(100vh-128px))] bg-(--color-bg) border border-(--color-border) rounded-2xl shadow-[0_8px_40px_rgb(0_0_0_/_0.4)] flex flex-col overflow-hidden animate-ganymede-slide-up origin-bottom-right box-border
-          max-md:right-2 max-md:left-2 max-md:bottom-[76px] max-md:w-[calc(100vw-16px)] max-md:max-h-[min(480px,calc(100vh-100px))] max-md:h-auto max-md:rounded-xl
-          max-[481px]:right-4 max-[481px]:w-[360px] max-[481px]:max-h-[min(500px,calc(100vh-128px))] max-[481px]:h-auto"
+        <div className="fixed bottom-24 right-6 z-999 w-[380px] h-[min(560px,calc(100vh-128px))] nb-box shadow-brutal-lg flex flex-col overflow-hidden animate-ganymede-slide-up box-border
+          max-md:right-2 max-md:left-2 max-md:bottom-[84px] max-md:w-auto max-md:h-[min(480px,calc(100vh-100px))]"
         >
-          <div className="flex items-center justify-between px-5 py-4 border-b border-(--color-border) shrink-0 max-md:px-3.5 max-md:py-2.5">
+          <div className="flex items-center justify-between px-4 py-3 bg-(--color-yellow) text-(--color-on-accent) border-b-[3px] border-(--color-ink) shrink-0">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-(--color-accent) flex items-center justify-center shrink-0 overflow-hidden">
+              <div className="w-9 h-9 bg-white border-2 border-black flex items-center justify-center shrink-0 overflow-hidden">
                 <img src={ganymedeLogo} alt="Ganymede" className="w-[70%] h-[70%] object-contain" />
               </div>
               <div className="flex flex-col">
-                <span className="text-[15px] font-bold text-(--color-text-h) leading-[1.2] max-md:text-sm">Ganymede v1.2</span>
-                <span className="text-[11px] text-(--color-text) tracking-[0.03em] max-md:text-[10px]">powered by Mokusei AI</span>
+                <span className="font-pixel text-[11px] leading-[1.4]">Ganymede v1.2</span>
+                <span className="text-[11px] font-medium">powered by Mokusei AI</span>
               </div>
             </div>
-            <div className="flex items-center gap-1">
-              <button className="px-2.5 py-1 rounded-md border border-(--color-border) bg-transparent text-(--color-text) text-xs font-semibold cursor-pointer transition-[background,color] duration-200 hover:bg-(--color-social-bg) hover:text-(--color-text-h) shrink-0" onClick={reset} aria-label="New conversation">+ New</button>
-              <button className="w-8 h-8 rounded-full border-none bg-transparent text-(--color-text) cursor-pointer flex items-center justify-center text-lg transition-[background,color] duration-200 hover:bg-(--color-social-bg) hover:text-(--color-text-h) shrink-0" onClick={handleToggle} aria-label="Close chat">✕</button>
+            <div className="flex items-center gap-1.5">
+              <button className="px-2 py-1 border-2 border-black bg-white text-black font-pixel text-[8px] cursor-pointer shrink-0 hover:-translate-y-0.5 transition-transform" onClick={reset} aria-label="New conversation">+ New</button>
+              <button className="w-8 h-8 border-2 border-black bg-white text-black cursor-pointer flex items-center justify-center text-base shrink-0 hover:-translate-y-0.5 transition-transform" onClick={handleToggle} aria-label="Close chat">✕</button>
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-3 text-left max-md:px-3 max-md:py-2.5 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-(--color-border) [&::-webkit-scrollbar-thumb]:rounded">
+          <div className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-3 text-left bg-(--color-bg) [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-(--color-ink)">
             {messages.map((msg) => (
               <div
                 key={msg.id}
-                className={`max-w-[85%] px-3.5 py-2.5 rounded-xl text-sm leading-[1.55] break-words whitespace-pre-wrap animate-ganymede-msg-in ${
+                className={`max-w-[85%] px-3.5 py-2.5 border-2 border-(--color-ink) text-sm leading-[1.55] break-words whitespace-pre-wrap animate-ganymede-msg-in ${
                   msg.role === 'user'
-                    ? 'self-end bg-(--color-accent) text-white rounded-br'
-                    : 'self-start bg-(--color-social-bg) text-(--color-text) border border-(--color-border) rounded-bl [&_strong]:text-(--color-accent) [&_h3]:text-sm [&_h3]:font-bold [&_h3]:text-(--color-text-h) [&_h3]:my-2 [&_h3]:mb-1 [&_p]:my-1 [&_p:first-child]:mt-0 [&_p:last-child]:mb-0 [&_ul]:my-1 [&_ul]:pl-5 [&_ol]:my-1 [&_ol]:pl-5 [&_li]:mb-0.5 [&_code]:text-[13px] [&_code]:bg-(--color-code-bg) [&_code]:px-1 [&_code]:py-px [&_code]:rounded [&_code]:font-mono [&_a]:text-(--color-accent) [&_a]:underline'
+                    ? 'self-end bg-(--color-yellow) text-(--color-on-accent) shadow-brutal-sm'
+                    : 'self-start bg-(--color-surface) text-(--color-text) shadow-brutal-sm [&_strong]:bg-(--color-yellow) [&_strong]:text-(--color-on-accent) [&_strong]:px-0.5 [&_h3]:text-sm [&_h3]:font-bold [&_h3]:my-2 [&_h3]:mb-1 [&_p]:my-1 [&_p:first-child]:mt-0 [&_p:last-child]:mb-0 [&_ul]:my-1 [&_ul]:pl-5 [&_ol]:my-1 [&_ol]:pl-5 [&_li]:mb-0.5 [&_code]:text-[13px] [&_code]:bg-(--color-sunken) [&_code]:px-1 [&_code]:py-px [&_code]:font-mono [&_a]:text-(--color-blue) [&_a]:underline'
                 }`}
               >
                 <ReactMarkdown>{msg.text}</ReactMarkdown>
               </div>
             ))}
             {isLoading && (
-              <div className="flex items-center gap-1 px-3.5 py-2.5 self-start bg-(--color-social-bg) border border-(--color-border) rounded-xl rounded-bl">
-                <span className="w-[7px] h-[7px] rounded-full bg-(--color-text) opacity-50 animate-ganymede-dot-bounce" />
-                <span className="w-[7px] h-[7px] rounded-full bg-(--color-text) opacity-50 animate-ganymede-dot-bounce [animation-delay:0.2s]" />
-                <span className="w-[7px] h-[7px] rounded-full bg-(--color-text) opacity-50 animate-ganymede-dot-bounce [animation-delay:0.4s]" />
+              <div className="flex items-center gap-1.5 px-3.5 py-3 self-start bg-(--color-surface) border-2 border-(--color-ink) shadow-brutal-sm">
+                <span className="w-2 h-2 bg-(--color-text) animate-ganymede-dot-bounce" />
+                <span className="w-2 h-2 bg-(--color-text) animate-ganymede-dot-bounce [animation-delay:0.2s]" />
+                <span className="w-2 h-2 bg-(--color-text) animate-ganymede-dot-bounce [animation-delay:0.4s]" />
               </div>
             )}
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="flex items-center gap-2 px-4 py-3 border-t border-(--color-border) shrink-0 max-md:px-2.5 max-md:py-2">
+          <div className="flex items-center gap-2 px-3 py-3 border-t-[3px] border-(--color-ink) shrink-0">
             <input
               ref={inputRef}
-              className="flex-1 px-3.5 py-2.5 rounded-[10px] border border-(--color-border) bg-(--color-code-bg) text-(--color-text) text-sm font-sans outline-hidden transition-[border-color] duration-200 placeholder:text-(--color-text) placeholder:opacity-50 focus:border-(--color-accent) max-md:px-3 max-md:py-2 max-md:text-[13px]"
+              className="nb-input flex-1 py-2.5 text-sm border-2 focus:shadow-brutal-sm focus:translate-0"
               type="text"
               placeholder="Ask me anything..."
+              aria-label="Message Ganymede"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               disabled={isLoading}
             />
             <button
-              className="w-[38px] h-[38px] rounded-full border-none bg-(--color-accent) text-white cursor-pointer flex items-center justify-center shrink-0 transition-[transform,box-shadow] duration-200 hover:scale-105 hover:shadow-accent-hover active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed max-md:w-[34px] max-md:h-[34px]"
+              className="w-11 h-11 border-2 border-(--color-ink) bg-(--color-yellow) text-(--color-on-accent) cursor-pointer flex items-center justify-center shrink-0 shadow-brutal-sm nb-press disabled:opacity-40 disabled:cursor-not-allowed"
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
               aria-label="Send message"
@@ -119,30 +119,23 @@ export default function GanymedeChat() {
       <div className="fixed bottom-6 right-6 z-[1000] animate-ganymede-float max-sm:bottom-4 max-sm:right-4">
         {showPrompt && (
           <div
-            className={`absolute top-1/2 right-[calc(100%+16px)] -translate-y-1/2 bg-(--color-accent) text-white px-[18px] py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap cursor-pointer z-10 shadow-accent-md ${
+            className={`nb-dialog absolute top-1/2 right-[calc(100%+16px)] -translate-y-1/2 px-4 py-3 font-pixel text-[9px] leading-[1.6] text-(--color-text) whitespace-nowrap cursor-pointer z-10 ${
               promptExiting ? 'animate-ganymede-prompt-out' : 'animate-ganymede-prompt-in'
-            } max-sm:top-auto max-sm:bottom-[calc(100%+12px)] max-sm:right-0 max-sm:left-auto max-sm:transform-none max-sm:px-4 max-sm:py-2 max-sm:text-[13px]`}
+            } max-sm:top-auto max-sm:bottom-[calc(100%+14px)] max-sm:right-0 max-sm:transform-none`}
             onClick={handlePromptClick}
-            style={{ '--prompt-arrow': '" "' }}
           >
-            <div className="absolute top-1/2 right-[-6px] -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] border-l-(--color-accent) max-sm:top-full max-sm:right-[18px] max-sm:-translate-y-0 max-sm:border-l-transparent max-sm:border-r-transparent max-sm:border-t-[6px] max-sm:border-t-(--color-accent) max-sm:border-b-0" />
-            Talk to Ganymede now!
+            Talk to Ganymede now! <span className="text-(--color-red) animate-blink">▶</span>
           </div>
         )}
-        <div className="relative">
-          <div className="absolute -inset-1 rounded-full bg-conic-[from_0deg,var(--color-accent),transparent_30%,var(--color-accent),transparent_60%,var(--color-accent)] animate-ganymede-spin -z-1" />
-          <button
-            className={`relative z-1 w-14 h-14 max-sm:w-12 max-sm:h-12 rounded-full border-none cursor-pointer flex items-center justify-center shadow-accent-btn transition-[transform,box-shadow] duration-300 select-none p-0 leading-none ${
-              isOpen
-                ? 'bg-(--color-accent) text-white text-2xl max-sm:text-xl rotate-45 hover:rotate-45 hover:scale-110'
-                : 'bg-(--color-accent) text-white hover:scale-110 hover:shadow-accent-xl active:scale-95'
-            }`}
-            onClick={handleToggle}
-            aria-label={isOpen ? 'Close chat' : 'Open chat'}
-          >
-            {isOpen ? '✕' : <img src={ganymedeLogo} alt="Ganymede" className="w-[70%] h-[70%] object-contain block" />}
-          </button>
-        </div>
+        <button
+          className={`w-14 h-14 max-sm:w-12 max-sm:h-12 border-[3px] border-(--color-ink) cursor-pointer flex items-center justify-center bg-(--color-yellow) text-(--color-on-accent) shadow-brutal nb-press select-none p-0 leading-none ${
+            isOpen ? 'text-2xl' : ''
+          }`}
+          onClick={handleToggle}
+          aria-label={isOpen ? 'Close chat' : 'Open chat'}
+        >
+          {isOpen ? '✕' : <img src={ganymedeLogo} alt="Ganymede" className="w-[70%] h-[70%] object-contain block" />}
+        </button>
       </div>
     </>
   )

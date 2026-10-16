@@ -23,7 +23,6 @@ function App() {
   const [columnsReveal, setColumnsReveal] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [worksTab, setWorksTab] = useState('programming')
-  const [timelineTab, setTimelineTab] = useState('education')
   const [carouselIndex, setCarouselIndex] = useState(0)
   const [selectedWork, setSelectedWork] = useState(null)
   const { theme, toggle: toggleTheme } = useTheme()
@@ -74,7 +73,7 @@ function App() {
           onNext={setCarouselIndex}
           onSelectWork={setSelectedWork}
         />
-        <Timeline timelineTab={timelineTab} onTabChange={setTimelineTab} />
+        <Timeline />
         <Skills />
         <Contact />
         <ErrorBoundary>
