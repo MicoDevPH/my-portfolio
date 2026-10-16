@@ -16,7 +16,7 @@ export default function Hero() {
   const heroSectionRef = useRef(null)
   const scrollWrapperRef = useRef(null)
   // Starts typing once the loading screen has cleared
-  const dialog = useDialog(DIALOG_LINES, { startDelay: 3100 })
+  const dialog = useDialog(DIALOG_LINES, { startDelay: 3100, autoAdvanceMs: 2500, loop: true, loopDelayMs: 2000 })
 
   useScrollAnimation(heroSectionRef, scrollWrapperRef)
 
@@ -80,7 +80,7 @@ export default function Hero() {
           <div
             role="button"
             tabIndex={0}
-            aria-label={dialog.isLast ? 'Dialog' : 'Next line'}
+            aria-label="Next line"
             className="nb-dialog mt-14 w-[min(640px,88vw)] px-7 py-6 text-left select-none"
             onClick={dialog.advance}
             onKeyDown={(e) => {
@@ -93,7 +93,7 @@ export default function Hero() {
             <p className="font-pixel text-[12px] leading-[2] text-(--color-text) m-0 min-h-[4em]" aria-live="polite">
               {dialog.text}
             </p>
-            {dialog.done && !dialog.isLast && (
+            {dialog.done && (
               <span className="absolute right-5 bottom-3 font-pixel text-[10px] text-(--color-red) animate-blink" aria-hidden="true">
                 ▼
               </span>
