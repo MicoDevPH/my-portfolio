@@ -20,6 +20,7 @@ export default function WorkDetail({ work, onBack }) {
             </h1>
             <div className="flex items-center gap-2.5 mb-8 flex-wrap">
               {work.year && <span className="nb-chip bg-(--color-yellow) text-(--color-on-accent)">{work.year}</span>}
+              {work.role && <span className="nb-chip bg-(--color-sunken)">{work.role}</span>}
               {work.genre && <span className="nb-chip">{work.genre}</span>}
               {work.tags?.map((tag) => (
                 <span key={tag} className="nb-chip">
@@ -28,9 +29,28 @@ export default function WorkDetail({ work, onBack }) {
                 </span>
               ))}
             </div>
-            <p className="m-0 mb-10 text-(--color-text)" style={{ fontSize: 'clamp(16px, 1.3vw, 18px)', lineHeight: 1.85 }}>
+            <p className="m-0 mb-8 text-(--color-text)" style={{ fontSize: 'clamp(16px, 1.3vw, 18px)', lineHeight: 1.85 }}>
               {work.longDesc}
             </p>
+            {work.outcome && (
+              <p className="m-0 mb-8 text-[16px] font-semibold">
+                <span className="text-(--color-green)">▲</span> {work.outcome}
+              </p>
+            )}
+            {(work.live || work.github) && (
+              <div className="flex flex-wrap gap-3 mb-10">
+                {work.live && (
+                  <a className="nb-btn nb-btn-yellow nb-press" href={work.live} target="_blank" rel="noopener noreferrer">
+                    ⌂ Live Demo
+                  </a>
+                )}
+                {work.github && (
+                  <a className="nb-btn nb-press" href={work.github} target="_blank" rel="noopener noreferrer">
+                    <Icon name="github" size={14} /> Source Code
+                  </a>
+                )}
+              </div>
+            )}
             {work.features?.length > 0 && (
               <div className="nb-dialog p-7 max-sm:p-5">
                 <h2 className="nb-eyebrow text-(--color-text) m-0 mb-6">Key Features</h2>
