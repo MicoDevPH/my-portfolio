@@ -16,7 +16,7 @@ export default function Hero() {
   const heroSectionRef = useRef(null)
   const scrollWrapperRef = useRef(null)
   // Starts typing once the loading screen has cleared
-  const dialog = useDialog(DIALOG_LINES, { startDelay: 2600 })
+  const dialog = useDialog(DIALOG_LINES, { startDelay: 3100 })
 
   useScrollAnimation(heroSectionRef, scrollWrapperRef)
 

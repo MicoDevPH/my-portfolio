@@ -1,8 +1,12 @@
 import { useInView } from '../hooks/useInView'
 import { revealClass } from '../lib/utils'
 import { programmingWorks, musicWorks } from '../constants/worksData'
-import aboutMe from '../assets/AboutMe.jpg'
 import Icon from './Icon'
+import PokeCard from './PokeCard'
+
+// First line of code: BSIT, Aug 2022
+const CODING_SINCE = new Date(2022, 7, 1)
+const yearsCoding = () => Math.floor((Date.now() - CODING_SINCE) / (365.25 * 24 * 60 * 60 * 1000))
 
 export default function About() {
   const visible = useInView('about')
@@ -12,6 +16,7 @@ export default function About() {
   const stats = [
     { value: programmingWorks.length, label: 'Projects Built' },
     { value: musicWorks.length, label: 'Tracks Produced' },
+    { value: yearsCoding(), label: 'Years Coding' },
   ]
 
   return (
@@ -64,9 +69,9 @@ export default function About() {
             </a>
           </div>
 
-          <div className={`grid grid-cols-2 gap-4 max-w-[440px] ${reveal('0.2s')}`}>
+          <div className={`grid grid-cols-3 gap-3 sm:gap-4 max-w-[560px] ${reveal('0.2s')}`}>
             {stats.map((s) => (
-              <div key={s.label} className="nb-box px-5 py-4">
+              <div key={s.label} className="nb-box px-4 sm:px-5 py-4">
                 <span className="font-pixel text-(--color-text) block leading-none mb-3" style={{ fontSize: 'clamp(26px, 3vw, 40px)' }}>
                   {String(s.value).padStart(2, '0')}
                 </span>
@@ -76,34 +81,15 @@ export default function About() {
           </div>
         </div>
 
-        {/* Trading-card style portrait */}
+        {/* Pokémon TCG-style card: tilt for holo shine, click to flip */}
         <div
-          className={`w-full max-w-[380px] shrink-0 transition-[opacity,transform] duration-700 delay-150 ease-out ${
+          className={`w-full max-w-[400px] shrink-0 transition-[opacity,transform] duration-700 delay-150 ease-out ${
             visible ? 'opacity-100 [transform:perspective(1200px)_rotateY(0deg)]' : 'opacity-0 [transform:perspective(1200px)_rotateY(-80deg)]'
           }`}
         >
-          <div className="lg:sticky lg:top-32 bg-(--color-yellow) border-[3px] border-(--color-ink) shadow-brutal-lg p-4 rotate-2 transition-transform duration-200 hover:rotate-0">
-            <div className="flex items-baseline justify-between text-(--color-on-accent) mb-3 px-1">
-              <span className="font-display font-bold text-[22px] uppercase">Mico</span>
-              <span className="font-pixel text-[10px]">
-                HP <span className="text-[16px]">120</span>
-              </span>
-            </div>
-            <div className="border-[3px] border-[#111] bg-white">
-              <img className="w-full h-[380px] object-cover block" src={aboutMe} alt="Mico Nakase" />
-            </div>
-            <div className="mt-3 flex gap-2">
-              <span className="nb-chip border-[#111] bg-white text-[#111]">⚡ Dev</span>
-              <span className="nb-chip border-[#111] bg-white text-[#111]">♪ Music</span>
-            </div>
-            <div className="mt-3 border-t-2 border-[#111] pt-3 text-[#111]">
-              <p className="m-0 font-pixel text-[9px] leading-[1.9]">
-                <span className="text-(--color-red)">◆</span> Ship It — 120
-              </p>
-              <p className="m-0 mt-1 text-[12px] italic leading-snug">
-                Turns coffee into clean code and late nights into beats.
-              </p>
-            </div>
+          <div className="lg:sticky lg:top-32">
+            <PokeCard />
+            <p className="nb-eyebrow text-[8px] text-center mt-6 m-0">Hover to tilt · Click to flip</p>
           </div>
         </div>
       </div>

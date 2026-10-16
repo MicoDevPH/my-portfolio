@@ -33,7 +33,7 @@ function App() {
   }, [selectedWork])
 
   useEffect(() => {
-    const minDisplay = new Promise((resolve) => setTimeout(resolve, 1900))
+    const minDisplay = new Promise((resolve) => setTimeout(resolve, 2400))
     const fontsReady = document.fonts.ready
     Promise.all([minDisplay, fontsReady]).then(() => {
       setFadeOut(true)

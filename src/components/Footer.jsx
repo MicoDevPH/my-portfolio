@@ -26,7 +26,7 @@ export default function Footer() {
           <span aria-hidden="true">·</span>
           <span className="flex items-center gap-2 bg-white text-black border-2 border-black px-2.5 py-1 font-pixel text-[8px] uppercase">
             <span className="w-2 h-2 bg-(--color-green) border border-black animate-blink" />
-            Open to work
+            Open for commissions
           </span>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-3">

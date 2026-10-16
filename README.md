@@ -28,7 +28,7 @@ Personal portfolio website for **Full Stack & Generative AI Developer** and **mu
 - **Timeline** — Three‑tab timeline (Education, Experience, Leadership) with scroll progress bar
 - **Skills** — Three scrolling marquee rows (Frontend, Backend, Tools & VC); hover shows experience duration
 - **Contact** — EmailJS-powered form (name, email, subject, message) + social links panel (GitHub, LinkedIn, Facebook, Instagram, TikTok, Email)
-- **Footer** — MLN. logo, location (San Pedro, Laguna), "Open to work" indicator, social icons
+- **Footer** — MLN. logo, location (San Pedro, Laguna), "Open for commissions" indicator, social icons
 - **Navbar** — Sticky, responsive, active section highlighted via IntersectionObserver, hamburger menu on mobile
 - **ErrorBoundary** — Wraps all sections for graceful failure handling
 
