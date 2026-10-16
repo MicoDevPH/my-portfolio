@@ -20,38 +20,37 @@ export default function Hero() {
 
   useScrollAnimation(heroSectionRef, scrollWrapperRef)
 
-  // Stretch both name lines to exactly match the navbar width
+  // Stretch both name lines to exactly match the navbar width.
+  // Uses offsetWidth (layout width) everywhere: it ignores transforms, so the measurement
+  // stays correct even when the page is refreshed mid-scroll and the hero is zoomed in.
   useEffect(() => {
     const equalize = () => {
       if (!micoRef.current || !nakaseRef.current) return
       const navbar = document.getElementById('navbar')
       if (!navbar) return
-      const targetW = navbar.getBoundingClientRect().width
+      const targetW = navbar.offsetWidth
       const vw = window.innerWidth
-
-      const getTextWidth = (el) => {
-        const range = document.createRange()
-        range.selectNodeContents(el)
-        return range.getBoundingClientRect().width
-      }
 
       nakaseRef.current.style.fontSize = ''
       micoRef.current.style.fontSize = ''
       micoRef.current.style.transform = ''
 
       const baseFs = parseFloat(window.getComputedStyle(nakaseRef.current).fontSize)
-      const nakaseTextW = getTextWidth(nakaseRef.current)
+      const nakaseTextW = nakaseRef.current.offsetWidth
+      if (!targetW || !nakaseTextW) return
       const newFsVw = (((baseFs * (targetW / nakaseTextW)) / vw) * 100).toFixed(4)
       nakaseRef.current.style.fontSize = newFsVw + 'vw'
       micoRef.current.style.fontSize = newFsVw + 'vw'
 
-      const scale = (targetW / getTextWidth(micoRef.current)).toFixed(6)
+      const scale = (targetW / micoRef.current.offsetWidth).toFixed(6)
       micoRef.current.style.transformOrigin = '50% 50%'
       micoRef.current.style.transform = `scaleX(${scale})`
     }
 
     equalize()
     document.fonts.ready.then(equalize)
+    // fonts.ready can resolve before the pixel font is even requested — wait for it explicitly
+    document.fonts.load('1em "Press Start 2P"').then(equalize).catch(() => {})
     window.addEventListener('resize', equalize)
     return () => window.removeEventListener('resize', equalize)
   }, [])
