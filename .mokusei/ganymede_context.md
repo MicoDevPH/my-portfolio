@@ -32,15 +32,6 @@
 - **Backend:** PHP, MySQL
 - **Styling Framework:** Bootstrap
 
-### Max Fireman
-
-- **Reason:** Hackaton (Prosperna Philippines)
-- **Type:** AI-powered support platform
-- **Description:** Diagnoses bugs and automates ticket creation in ClickUp
-- **Tech Stack:** (AI-powered support application)
-- **Frontend:** React.js
-- **Backend:** Node.js (For Google Auth) & Python (Max Fireman Agent)
-
 ## Skills
 
 ### Frontend

@@ -1,5 +1,4 @@
 import kevinsExpress from '../assets/KevinsExpress.png'
-import maxFireman from '../assets/MaxFireman.png'
 import myPortfolio from '../assets/MyPortfolio.png'
 import ligtas from '../assets/Ligtas.png'
 import samyo from '../assets/Samyo ng San Pedro.png'
@@ -12,6 +11,10 @@ import mahiwagangLagunaMp3 from '../assets/Mahiwagang Laguna.mp3'
 import muiMui from '../assets/Mui Mui.png'
 import muiMuiMp3 from '../assets/Mui Mui.mp3'
 import aribaMp3 from '../assets/Ariba Bagong San Pedro.mp3'
+import galleryLoading from '../assets/gallery/portfolio-loading.png'
+import galleryCard from '../assets/gallery/portfolio-about-card.png'
+import galleryMusic from '../assets/gallery/portfolio-music.png'
+import galleryDark from '../assets/gallery/portfolio-dark-hero.png'
 
 // Optional per track — shown in its Details popup, each only when filled in:
 //   links: [{ label: 'YouTube', url: 'https://…' }, { label: 'Spotify', url: 'https://…' }]
@@ -156,6 +159,7 @@ export const musicWorks = [
 
 // Optional per project — only shown when filled in:
 //   live: 'https://…', github: 'https://…', role: 'Solo full-stack', outcome: '…'
+//   gallery: [{ src: img, caption: '…' }] — extra screenshots under Key Features
 // `featured: true` gets the wide spotlight card.
 export const programmingWorks = [
   {
@@ -165,26 +169,26 @@ export const programmingWorks = [
     features: ['Online booking system with real-time availability', 'Client management and session history tracking', 'Responsive design for desktop and mobile', 'Secure admin dashboard for managing reservations'],
     year: '2025',
     featured: true,
+    role: 'Capstone Project',
     img: kevinsExpress,
     tags: ['PHP', 'CSS3', 'Html5'],
   },
   {
-    title: 'Max Fireman',
-    desc: 'AI-powered support platform that diagnoses bugs and automates ticket creation in ClickUp.',
-    longDesc: 'An intelligent support platform that leverages AI to diagnose software bugs and automate the entire ticket creation workflow in ClickUp.',
-    features: ['AI-powered bug diagnosis and error analysis', 'Automated ClickUp ticket creation with context', 'Real-time status tracking for reported issues', 'User-friendly dashboard for managing support cases'],
-    year: '2026',
-    img: maxFireman,
-    tags: ['React', 'NodeJS', 'Python'],
-  },
-  {
     title: 'My Portfolio',
-    desc: 'Personal portfolio built with Ganymede v1.2, an AI agent developed by Mokusei AI.',
-    longDesc: 'A personal portfolio website built with React and Vite, featuring an AI-powered chat assistant powered by Ganymede v1.2.',
-    features: ['AI chat assistant (Ganymede) for interactive engagement', 'Smooth scroll animations and responsive design', 'Works carousel with interactive project showcase', 'Contact form with EmailJS integration'],
+    desc: 'Pokémon-inspired, neo-brutalist personal portfolio built with React and Vite.',
+    longDesc: 'A personal portfolio website built with React, Vite and Tailwind CSS, styled with a retro Pokémon-inspired, neo-brutalist look — pixel type, a Pokédex loading screen and a collectible trading card.',
+    features: ['Pokédex loading screen and interactive trading card', 'Works grid with project pages and a built-in music player', 'Smooth scroll animations, dark mode and responsive design', 'Contact form with EmailJS integration'],
     year: '2026',
     img: myPortfolio,
-    tags: ['React', 'Python'],
+    role: 'Solo · Design & Development',
+    outcome: 'Designed and built solo — six sections, six original tracks playable on-site, and light & dark themes.',
+    tags: ['React', 'Vite', 'Tailwind'],
+    gallery: [
+      { src: galleryLoading, caption: 'Pokédex-style loading screen' },
+      { src: galleryCard, caption: 'About section with the flippable trading card' },
+      { src: galleryMusic, caption: 'Music works with the built-in track player' },
+      { src: galleryDark, caption: 'Dark mode' },
+    ],
   },
 ]
 // URL-safe id for a work, used in #/works/<slug>

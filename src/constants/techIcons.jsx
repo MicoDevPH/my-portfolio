@@ -7,4 +7,6 @@ export const techIcons = {
   React: <img src={`${DEVICON}/react/react-original.svg`} width="12" height="12" alt="" />,
   NodeJS: <img src={`${DEVICON}/nodejs/nodejs-original.svg`} width="12" height="12" alt="" />,
   Python: <img src={`${DEVICON}/python/python-original.svg`} width="12" height="12" alt="" />,
+  Vite: <img src={`${DEVICON}/vitejs/vitejs-original.svg`} width="12" height="12" alt="" />,
+  Tailwind: <img src={`${DEVICON}/tailwindcss/tailwindcss-original.svg`} width="12" height="12" alt="" />,
 }
