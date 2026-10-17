@@ -11,8 +11,29 @@ import saLagunaMp3 from '../assets/Sa Laguna.mp3'
 import mahiwagangLagunaMp3 from '../assets/Mahiwagang Laguna.mp3'
 import muiMui from '../assets/Mui Mui.png'
 import muiMuiMp3 from '../assets/Mui Mui.mp3'
+import aribaMp3 from '../assets/Ariba Bagong San Pedro.mp3'
 
+// Optional per track — shown in its Details popup, each only when filled in:
+//   links: [{ label: 'YouTube', url: 'https://…' }, { label: 'Spotify', url: 'https://…' }]
+//   credits: { artist, vocals, lyricist, composer, arranger, producer, mixing }
+//     each a name, or a list of names (['A', 'B']) to show one per line
 export const musicWorks = [
+  {
+    title: 'Ariba! Bagong San Pedro',
+    desc: 'Finalist in Tunog San Pedro 2022, the Tourism Month festival music competition of San Pedro, Laguna.',
+    longDesc: 'A pop rock track made for Tunog San Pedro 2022, the Original Festival Music and Tourism-Jingle Competition held for Tourism Month in San Pedro, Laguna, where it was named a finalist. An upbeat anthem cheering on the growth and spirit of San Pedro.',
+    year: '2022',
+    genre: 'Pop Rock',
+    award: 'Finalist · Tunog San Pedro 2022',
+    audio: aribaMp3,
+    credits: {
+      artist: 'Truchorus Performance Company',
+      vocals: ['Precious Mutya Espedido', 'Mico Nakase', 'Ronnie Jr. Rivera', 'John Earl Robles'],
+      lyricist: ['Precious Mutya Espedido', 'Mico Nakase', 'Ronnie Jr. Rivera', 'John Earl Robles'],
+      composer: 'Mico Nakase',
+      producer: 'Mico Nakase',
+    },
+  },
   {
     title: 'Sa Laguna',
     desc: 'Entry for Anilag Festival 2023, An original track showing the rich culture of Laguna.',
@@ -22,16 +43,48 @@ export const musicWorks = [
     award: 'Anilag Festival 2023 entry',
     img: saLaguna,
     audio: saLagunaMp3,
+    credits: {
+      artist: 'Truchorus Performance Company',
+      vocals: [
+        'Precious Mutya Espedido',
+        'Mico Nakase',
+        'Ronnie Jr. Rivera',
+        'Jeremy Rago',
+        'Danica Morales',
+        'Nico Morales',
+        'Jericho Nicol',
+        'Aira Shane Venenoso',
+        'Ervin Jake Alano',
+      ],
+      lyricist: ['Mico Nakase', 'Precious Mutya Espedido', 'Jeremy Rago'],
+      composer: 'Mico Nakase',
+      producer: 'Mico Nakase',
+    },
   },
   {
     title: 'Samyo ng San Pedro',
     desc: 'Original composition celebrating the heritage of San Pedro City, Laguna.',
-    longDesc: "An original pop track celebrating the fragrance and culture of San Pedro City, Laguna. A melodic tribute to the city's identity and community spirit.",
+    longDesc: "An original pop ballad celebrating the fragrance and culture of San Pedro City, Laguna. A melodic tribute to the city's identity and community spirit.",
     year: '2024',
-    genre: 'Pop',
+    genre: 'Pop Ballad',
     award: 'Sampaguita Festival 2024 entry',
     img: samyo,
     audio: samyoMp3,
+    credits: {
+      artist: 'Truchorus Performance Company',
+      vocals: [
+        'Precious Mutya Espedido',
+        'Ronnie Jr. Rivera',
+        'Jeremy Rago',
+        'Elaine Angelica Cruz',
+        'Kim Cayaoyao',
+        'Angel May Simeon',
+        'Peter Tamundong',
+      ],
+      lyricist: ['Precious Mutya Espedido', 'Jeremy Rago'],
+      composer: 'Mico Nakase',
+      producer: 'Mico Nakase',
+    },
   },
   {
     title: 'Mahiwagang Laguna',
@@ -42,16 +95,38 @@ export const musicWorks = [
     award: 'Anilag Festival 2024 entry',
     img: mahiwagangLaguna,
     audio: mahiwagangLagunaMp3,
+    credits: {
+      artist: 'Truchorus Performance Company',
+      vocals: [
+        'Precious Mutya Espedido',
+        'Mico Nakase',
+        'Jeremy Rago',
+        'Ronnie Jr. Rivera',
+        'Angel May Simeon',
+        'Kim Cayaoyao',
+        'Ervin Jake Alano',
+      ],
+      lyricist: ['Mico Nakase', 'Precious Mutya Espedido', 'Jeremy Rago'],
+      composer: 'Mico Nakase',
+      producer: 'Mico Nakase',
+    },
   },
   {
     title: 'Ligtas',
     desc: 'Awarded 1st Runner Up in the CDRRMO Musikaligtasan 2025 competition.',
-    longDesc: 'A J-pop inspired track with a pop-forward sound. Produced as an entry for the CDRRMO Musikaligtasan 2025 competition, where it placed 1st Runner Up.',
+    longDesc: 'A pop track with J-pop–inspired instrumentation, produced for the CDRRMO Musikaligtasan 2025 competition, where it placed 1st Runner Up.',
     year: '2025',
-    genre: 'J-pop',
+    genre: 'OPM Pop',
     award: '1st Runner Up · Musikaligtasan 2025',
     img: ligtas,
     audio: ligtasMp3,
+    credits: {
+      artist: 'Truchorus Performance Company',
+      vocals: 'Precious Mutya Espedido',
+      lyricist: ['Mico Nakase', 'Precious Mutya Espedido', 'Jeremy Rago', 'Eugene Franchois Iglesia'],
+      composer: ['Mico Nakase', 'Eugene Franchois Iglesia'],
+      producer: 'Mico Nakase',
+    },
   },
   {
     title: 'Mui Mui',
@@ -61,6 +136,21 @@ export const musicWorks = [
     genre: 'Rap, Hiphop, Rock',
     img: muiMui,
     audio: muiMuiMp3,
+    credits: {
+      artist: 'Mico Nakase',
+      vocals: [
+        'Mico Nakase',
+        'Lance Ervin Denore',
+        'RJ Azucena',
+        'Eriz Jon Bantug',
+        'Richmond Arconado',
+        'John Rey Gavino',
+        'Arvin Calinog',
+      ],
+      lyricist: 'Mico Nakase',
+      composer: 'Mico Nakase',
+      producer: 'Mico Nakase',
+    },
   },
 ]
 
