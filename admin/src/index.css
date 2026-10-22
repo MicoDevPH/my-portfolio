@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+/* Same Pokémon neo-brutalist tokens as the portfolio (src/App.css) */
+@theme {
+  --color-bg: #fffbea;
+  --color-surface: #ffffff;
+  --color-sunken: #f4efd9;
+  --color-ink: #111111;
+  --color-text: #1a1a1a;
+  --color-muted: #4d4a42;
+  --color-yellow: #ffd60a;
+  --color-red: #e3350d;
+  --color-blue: #2a5bd7;
+  --color-green: #2fb35a;
+  --color-on-accent: #111111;
+  --color-dots: #11111114;
+
+  --font-sans: 'Space Grotesk Variable', system-ui, sans-serif;
+  --font-display: 'Pixelify Sans Variable', 'Press Start 2P', system-ui, sans-serif;
+  --font-pixel: 'Press Start 2P', ui-monospace, monospace;
+
+  --shadow-brutal-sm: 2px 2px 0 0 var(--color-ink);
+  --shadow-brutal: 4px 4px 0 0 var(--color-ink);
+  --shadow-brutal-lg: 8px 8px 0 0 var(--color-ink);
+  --shadow-brutal-yellow: 4px 4px 0 0 var(--color-yellow);
+}
+
+@utility nb-box {
+  background: var(--color-surface);
+  border: 3px solid var(--color-ink);
+  box-shadow: var(--shadow-brutal);
+}
+
+@utility nb-press {
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  &:hover:not(:disabled) {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 0 var(--color-ink);
+  }
+  &:active:not(:disabled) {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 0 var(--color-ink);
+  }
+}
+
+@utility nb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.1rem;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  line-height: 1.4;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 3px solid var(--color-ink);
+  box-shadow: var(--shadow-brutal);
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@utility nb-btn-sm {
+  padding: 0.4rem 0.6rem;
+  font-size: 8px;
+  border-width: 2px;
+  box-shadow: var(--shadow-brutal-sm);
+}
+
+@utility nb-btn-yellow {
+  background: var(--color-yellow);
+  color: var(--color-on-accent);
+}
+
+@utility nb-btn-red {
+  background: var(--color-red);
+  color: #fff;
+}
+
+@utility nb-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  line-height: 1.6;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 2px solid var(--color-ink);
+  background: var(--color-surface);
+}
+
+@utility nb-eyebrow {
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+@utility nb-input {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 3px solid var(--color-ink);
+  border-radius: 0;
+  outline: none;
+  transition: box-shadow 0.12s ease;
+
+  &::placeholder {
+    color: var(--color-muted);
+    opacity: 0.7;
+  }
+  &:focus {
+    box-shadow: var(--shadow-brutal-yellow), 7px 7px 0 0 var(--color-ink);
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  background-image: radial-gradient(circle, var(--color-dots) 1.6px, transparent 2px);
+  background-size: 22px 22px;
+}

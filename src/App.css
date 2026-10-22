@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* The admin app has its own Tailwind build */
+@source not "../admin";
 
 /* ====== Design tokens — Pokémon neo-brutalism ====== */
 
