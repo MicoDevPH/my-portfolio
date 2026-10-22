@@ -191,10 +191,4 @@ export const programmingWorks = [
     ],
   },
 ]
-// URL-safe id for a work, used in #/works/<slug>
-export const slugify = (title) =>
-  title
-    .toLowerCase()
-    .replace(/['’]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '')
+export { slugify } from '../lib/slugify.js'
