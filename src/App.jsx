@@ -11,7 +11,6 @@ import Footer from './components/Footer'
 import WorkDetail from './components/WorkDetail'
 import ErrorBoundary from './components/ErrorBoundary'
 import Cursor from './components/Cursor'
-// import GanymedeChat from './components/GanymedeChat'
 import { useTheme } from './hooks/useTheme'
 import { useActiveSection } from './hooks/useActiveSection'
 import { useContent } from './hooks/useContent'
@@ -124,9 +123,6 @@ function App() {
         <Timeline journey={content.journey} />
         <Skills party={content.skills.party} box={content.skills.box} boxCount={content.skills.boxCount} />
         <Contact />
-        <ErrorBoundary>
-          {/* <GanymedeChat /> */}
-        </ErrorBoundary>
         <Footer />
       </div>
 

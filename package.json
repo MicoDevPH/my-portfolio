@@ -8,7 +8,6 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "seed": "node --env-file=.env.local --import ./scripts/seed/register.mjs scripts/seed.mjs",
     "dev:api": "node --watch --env-file=.env.local scripts/dev-api.mjs"
   },
   "dependencies": {
@@ -19,11 +18,9 @@
     "@tailwindcss/vite": "^4.3.1",
     "cloudinary": "^2.11.0",
     "clsx": "^2.1.1",
-    "culori": "^4.0.2",
     "mongodb": "^6.21.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "react-markdown": "^10.1.0",
     "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.3.1"
   },

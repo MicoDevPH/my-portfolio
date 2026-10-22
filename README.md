@@ -14,8 +14,9 @@ Personal portfolio website for **Full Stack & Generative AI Developer** and **mu
 - **Vite 8** — Build tool with HMR (via Rolldown)
 - **Tailwind CSS v4** — Utility-first styling via `@tailwindcss/vite` plugin
 - **EmailJS** — Client-side contact form delivery
-- **Culori** — OKLCH color space manipulation for theming
-- **react-markdown** — Markdown rendering for AI chat
+- **Vercel Functions** — Content API in `api/`
+- **MongoDB Atlas** — Works, tracks, journey and skills data
+- **Cloudinary** — Cover images, screenshots and MP3s (served auto-optimized)
 
 ## Features
 
@@ -34,19 +35,35 @@ Personal portfolio website for **Full Stack & Generative AI Developer** and **mu
 
 ## Architecture
 
-Single‑page application organized by concern:
+Three parts in one repo, deployed as two Vercel projects:
 
 ```
+www.miconakase.xyz        portfolio (this folder) + api/
+admin.miconakase.xyz      admin app (admin/, Vercel Root Directory = admin)
+```
+
+```
+api/                 # Vercel Functions: content CRUD, admin login, Cloudinary upload signing
+├── _lib/            # DB connection, auth cookie, validation (not routes)
+admin/               # Separate Vite app for editing content (proxies /api to the portfolio)
+scripts/dev-api.mjs  # Runs api/ locally on :3001
 src/
 ├── components/      # UI components (Hero, About, Works, etc.)
-├── hooks/           # Custom React hooks (useTheme, useActiveSection, useInView, etc.)
-├── constants/       # Data files (skillsData, techIcons)
-├── services/        # API clients (chatService for Ganymede)
-├── assets/          # Images, fonts, audio
+├── hooks/           # Custom React hooks (useContent, useTheme, useActiveSection, etc.)
+├── lib/             # Content shaping, shared slugify, class helpers
+├── constants/       # techIcons
+├── services/        # API clients (contentService)
+├── assets/          # Static images (profile photo, etc.)
 ├── App.jsx          # Root component with section orchestration
 ├── App.css          # Tailwind import, theme variables, animations
 └── main.jsx         # Entry point
 ```
+
+### Content
+
+All works, tracks, journey entries and skills live in MongoDB and are edited at
+`admin.miconakase.xyz`. The site loads them in one request (`GET /api/content`), cached
+on Vercel's CDN for 30 seconds, so edits go live within about half a minute.
 
 ### Custom hooks
 
@@ -58,7 +75,7 @@ src/
 | `useScrollAnimation` | Scroll‑driven hero text animation (requestAnimationFrame‑based) |
 | `useDuration` | Calculates experience duration from a start date |
 | `useForm` | Contact form state + EmailJS submission |
-| `useChat` | Ganymede chat state with `localStorage` persistence |
+| `useContent` | Loads portfolio content from `/api/content` |
 
 ## Theming
 
@@ -66,12 +83,17 @@ The site uses CSS custom properties scoped to `[data-theme="japanese"]` and `[da
 
 ## Environment Variables
 
-Create a `.env` file in the project root:
+Create a `.env.local` file in the project root (git-ignored). The same values go in the
+portfolio's Vercel project settings; the admin project needs none.
 
 | Variable | Description |
 |----------|-------------|
-| `VITE_API_URL` | Ganymede backend URL (default: `http://localhost:8000`) |
-| `VITE_MOKUSEI_API_KEY` | Mokusei AI API key |
+| `MONGODB_URI` | MongoDB Atlas connection string (database `portfolio`) |
+| `CLOUDINARY_CLOUD_NAME` | Cloudinary cloud name |
+| `CLOUDINARY_API_KEY` | Cloudinary API key |
+| `CLOUDINARY_API_SECRET` | Cloudinary API secret (server only) |
+| `ADMIN_PASSWORD` | Password for the admin app |
+| `SESSION_SECRET` | Random string that signs the admin login cookie |
 | `VITE_EMAILJS_SERVICE_ID` | EmailJS service ID |
 | `VITE_EMAILJS_TEMPLATE_ID` | EmailJS template ID |
 | `VITE_EMAILJS_PUBLIC_KEY` | EmailJS public key |
@@ -80,7 +102,10 @@ Create a `.env` file in the project root:
 
 ```bash
 npm install
-npm run dev
+npm run dev:api   # content API on :3001 (separate terminal)
+npm run dev       # site on :5173, proxies /api to :3001
+
+cd admin && npm install && npm run dev   # admin on :5174
 ```
 
 ## Available Scripts
@@ -88,6 +113,7 @@ npm run dev
 | Script | Command | Description |
 |--------|---------|-------------|
 | `dev` | `vite` | Start dev server with HMR |
+| `dev:api` | `node --watch scripts/dev-api.mjs` | Run the `api/` functions locally |
 | `build` | `vite build` | Production build to `dist/` |
 | `preview` | `vite preview` | Preview the production build locally |
 | `lint` | `eslint .` | Lint all source files |
@@ -98,14 +124,4 @@ npm run dev
 npm run build
 ```
 
-Output is written to `dist/`. Deploy to any static host (Vercel, Netlify, GitHub Pages, etc.).
-
-## Ganymede AI Chat
-
-A floating AI chat assistant (Ganymede v1.2 by Mokusei AI) is available as an optional feature. It is currently disabled in `App.jsx`. To enable:
-
-1. Uncomment the `GanymedeChat` import and usage in `src/App.jsx`
-2. Start the Ganymede backend server on `localhost:8000`
-3. Set `VITE_API_URL` and `VITE_MOKUSEI_API_KEY` in `.env`
-
-The chat supports Markdown rendering, periodic prompt suggestions, and message persistence to `localStorage`.
+Output is written to `dist/`. Deployed on Vercel, which also runs the `api/` functions.

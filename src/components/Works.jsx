@@ -310,7 +310,7 @@ function PlayerBar({ track, playing, currentTime, duration, volume, onToggle, on
     'h-1.5 appearance-none bg-white/25 cursor-pointer min-w-0 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-(--color-yellow) [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-black [&::-moz-range-thumb]:w-3 [&::-moz-range-thumb]:h-3 [&::-moz-range-thumb]:rounded-none [&::-moz-range-thumb]:bg-(--color-yellow) [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-black'
 
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-90 w-[min(720px,calc(100vw-32px))] flex items-center gap-3 px-3 py-2.5 bg-[#111] text-white border-[3px] border-[#111] shadow-[6px_6px_0_0_var(--color-yellow)] animate-ganymede-slide-up">
+    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-90 w-[min(720px,calc(100vw-32px))] flex items-center gap-3 px-3 py-2.5 bg-[#111] text-white border-[3px] border-[#111] shadow-[6px_6px_0_0_var(--color-yellow)] animate-slide-up">
       <TrackCover track={track} className="w-11 h-11 border-2 border-white shrink-0" noteSize="text-xl" />
       <button
         className="flex items-center justify-center w-9 h-9 shrink-0 bg-(--color-yellow) text-black border-2 border-white cursor-pointer"

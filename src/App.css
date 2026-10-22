@@ -36,12 +36,7 @@
   --animate-bob: bob 2.4s steps(4) infinite;
   --animate-wobble: wobble 1.2s ease-in-out infinite;
   --animate-dot-pulse: dot-pulse 1.2s steps(3) infinite;
-  --animate-ganymede-float: bob 3s steps(6) infinite;
-  --animate-ganymede-prompt-in: ganymede-prompt-in 0.3s steps(4);
-  --animate-ganymede-prompt-out: ganymede-prompt-out 0.2s steps(3) forwards;
-  --animate-ganymede-slide-up: ganymede-slide-up 0.25s steps(5);
-  --animate-ganymede-msg-in: ganymede-msg-in 0.2s ease;
-  --animate-ganymede-dot-bounce: dot-pulse 1.2s steps(3) infinite;
+  --animate-slide-up: slide-up 0.25s steps(5);
 }
 
 :root[data-theme='dark'] {
@@ -486,21 +481,7 @@ body {
   100% { transform: translate3d(-20px, 135vh, 0) rotate(360deg); opacity: 0; }
 }
 
-@keyframes ganymede-prompt-in {
-  from { opacity: 0; transform: translateY(-50%) translateX(12px); }
-  to { opacity: 1; transform: translateY(-50%) translateX(0); }
-}
-
-@keyframes ganymede-prompt-out {
-  to { opacity: 0; transform: translateY(-50%) translateX(16px); }
-}
-
-@keyframes ganymede-slide-up {
+@keyframes slide-up {
   from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes ganymede-msg-in {
-  from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
 }
