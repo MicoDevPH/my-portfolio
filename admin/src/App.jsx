@@ -4,7 +4,7 @@ import { SECTIONS } from './schema'
 import Login from './components/Login'
 import CollectionView from './components/CollectionView'
 
-const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://miconakase.xyz'
+const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://www.miconakase.xyz'
 
 // Remember the open section across refreshes via #music, #projects, …
 const sectionFromHash = () => SECTIONS.find((s) => `#${s.key}` === window.location.hash) ?? SECTIONS[0]
