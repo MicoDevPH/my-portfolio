@@ -1,7 +1,6 @@
 import { useInView } from '../hooks/useInView'
 import { revealClass, staggerStyle } from '../lib/utils'
 import { calcLevel, formatSince } from '../hooks/useDuration'
-import { partyTools, boxGroups } from '../constants/skillsData'
 import SectionHeading from './SectionHeading'
 
 // Featured card — like a slot on the Pokémon party screen
@@ -43,15 +42,8 @@ function BoxChip({ tool }) {
   )
 }
 
-// Stagger order for the box chips: continues after the 6 party cards
-const boxRows = boxGroups
-  .map((g) => ({ ...g, stored: g.tools.filter((t) => !t.party) }))
-  .filter((g) => g.stored.length > 0)
-let chipOrder = partyTools.length
-for (const g of boxRows) g.stored = g.stored.map((t) => ({ ...t, order: chipOrder++ }))
-const boxCount = boxRows.reduce((n, g) => n + g.stored.length, 0)
-
-export default function Skills() {
+// `party` = featured cards; `box` = the rest grouped by category (built in lib/content.js)
+export default function Skills({ party, box, boxCount }) {
   const visible = useInView('skills', 0.1)
 
   return (
@@ -74,7 +66,7 @@ export default function Skills() {
           <span className="flex-1 border-t-[3px] border-(--color-ink)" aria-hidden="true" />
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {partyTools.map((tool, i) => (
+          {party.map((tool, i) => (
             <div key={tool.name} className={revealClass(visible, '0s', 'pop')} style={staggerStyle(i, 70)}>
               <PartyCard tool={tool} />
             </div>
@@ -88,12 +80,12 @@ export default function Skills() {
             <span className="font-pixel text-[8px] uppercase text-(--color-yellow)">{boxCount} stored</span>
           </div>
           <div className="px-5 py-6 flex flex-col gap-6">
-            {boxRows.map((group) => (
+            {box.map((group) => (
               <div key={group.title} className="flex flex-col md:flex-row md:items-start gap-3 md:gap-6">
                 <span className="nb-eyebrow text-(--color-text) md:w-[110px] md:pt-3 shrink-0">{group.title}</span>
                 <div className="flex flex-wrap gap-2.5">
                   {group.stored.map((tool) => (
-                    <span key={tool.name} className={revealClass(visible, '0s', 'pop')} style={staggerStyle(tool.order, 25, 900)}>
+                    <span key={tool.name} className={revealClass(visible, '0s', 'pop')} style={staggerStyle(tool.stagger, 25, 900)}>
                       <BoxChip tool={tool} />
                     </span>
                   ))}

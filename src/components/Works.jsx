@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useInView } from '../hooks/useInView'
 import { revealClass, staggerStyle } from '../lib/utils'
 import { techIcons } from '../constants/techIcons'
-import { programmingWorks, musicWorks } from '../constants/worksData'
 import Icon from './Icon'
 import TabButton from './TabButton'
 import SectionHeading from './SectionHeading'
@@ -344,7 +343,7 @@ function PlayerBar({ track, playing, currentTime, duration, volume, onToggle, on
   )
 }
 
-export default function Works({ worksTab, onTabChange, onSelectWork }) {
+export default function Works({ projects, music, loadFailed, worksTab, onTabChange, onSelectWork }) {
   const visible = useInView('works', 0.1)
   const audioRef = useRef(null)
   const [trackIndex, setTrackIndex] = useState(null) // null = player hidden
@@ -396,7 +395,7 @@ export default function Works({ worksTab, onTabChange, onSelectWork }) {
     setTrackIndex(i)
     setCurrentTime(0)
     setDuration(0)
-    el.src = musicWorks[i].audio
+    el.src = music[i].audio
     el.play().catch(() => {})
   }
 
@@ -406,7 +405,7 @@ export default function Works({ worksTab, onTabChange, onSelectWork }) {
   }
 
   const reveal = (delay) => revealClass(visible, delay)
-  const ordered = [...programmingWorks.filter((w) => w.featured), ...programmingWorks.filter((w) => !w.featured)]
+  const ordered = [...projects.filter((w) => w.featured), ...projects.filter((w) => !w.featured)]
 
   return (
     <section
@@ -433,11 +432,17 @@ export default function Works({ worksTab, onTabChange, onSelectWork }) {
           </TabButton>
         </div>
 
+        {loadFailed && (
+          <p className="nb-box mt-12 px-5 py-4 m-0 text-(--color-text) font-semibold">
+            Couldn't load my works right now. Please refresh in a moment.
+          </p>
+        )}
+
         {worksTab === 'programming' && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-7 mt-12">
             {ordered.map((work, i) => (
               <div
-                key={work.title}
+                key={work._id}
                 className={`${work.featured ? 'md:col-span-2' : ''} ${revealClass(visible, '0s', 'up')}`}
                 style={staggerStyle(i, 100)}
               >
@@ -449,8 +454,8 @@ export default function Works({ worksTab, onTabChange, onSelectWork }) {
 
         {worksTab === 'music' && (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-8 mt-12">
-            {musicWorks.map((track, i) => (
-              <div key={track.title} className={revealClass(visible, '0s', 'pop')} style={staggerStyle(i, 70)}>
+            {music.map((track, i) => (
+              <div key={track._id} className={revealClass(visible, '0s', 'pop')} style={staggerStyle(i, 70)}>
                 <TrackCard
                   track={track}
                   active={trackIndex === i}
@@ -468,7 +473,7 @@ export default function Works({ worksTab, onTabChange, onSelectWork }) {
 
       {trackIndex !== null && (
         <PlayerBar
-          track={musicWorks[trackIndex]}
+          track={music[trackIndex]}
           playing={playing}
           currentTime={currentTime}
           duration={duration}
@@ -486,7 +491,7 @@ export default function Works({ worksTab, onTabChange, onSelectWork }) {
 
       {detailIndex !== null && (
         <TrackModal
-          track={musicWorks[detailIndex]}
+          track={music[detailIndex]}
           active={trackIndex === detailIndex}
           playing={trackIndex === detailIndex && playing}
           onPlay={() => playTrack(detailIndex)}

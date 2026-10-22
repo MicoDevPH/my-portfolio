@@ -1,6 +1,5 @@
 import { useInView } from '../hooks/useInView'
 import { revealClass } from '../lib/utils'
-import { programmingWorks, musicWorks } from '../constants/worksData'
 import Icon from './Icon'
 import PokeCard from './PokeCard'
 
@@ -8,14 +7,14 @@ import PokeCard from './PokeCard'
 const CODING_SINCE = new Date(2022, 7, 1)
 const yearsCoding = () => Math.floor((Date.now() - CODING_SINCE) / (365.25 * 24 * 60 * 60 * 1000))
 
-export default function About() {
+export default function About({ projectCount, trackCount }) {
   const visible = useInView('about')
 
   const reveal = (delay) => revealClass(visible, delay)
 
   const stats = [
-    { value: programmingWorks.length, label: 'Projects Built' },
-    { value: musicWorks.length, label: 'Tracks Produced' },
+    { value: projectCount, label: 'Projects Built' },
+    { value: trackCount, label: 'Tracks Produced' },
     { value: yearsCoding(), label: 'Years Coding' },
   ]
 

@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useInView } from '../hooks/useInView'
 import { revealClass, staggerStyle } from '../lib/utils'
-import { journeyData } from '../constants/timelineData'
 import TabButton from './TabButton'
 import SectionHeading from './SectionHeading'
 
@@ -22,12 +21,12 @@ const TYPES = {
 // The current job gets the spotlight treatment
 const isSpotlight = (entry) => entry.type === 'work' && entry.current
 
-export default function Timeline() {
+export default function Timeline({ journey }) {
   const visible = useInView('timeline', 0.05)
   const [filter, setFilter] = useState('all')
   const [showAll, setShowAll] = useState(false)
 
-  const filtered = journeyData.filter((e) => filter === 'all' || e.type === filter)
+  const filtered = journey.filter((e) => filter === 'all' || e.type === filter)
   const hiddenCount = filtered.filter((e) => e.minor).length
   const entries = showAll ? filtered : filtered.filter((e) => !e.minor)
 

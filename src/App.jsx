@@ -14,31 +14,33 @@ import Cursor from './components/Cursor'
 // import GanymedeChat from './components/GanymedeChat'
 import { useTheme } from './hooks/useTheme'
 import { useActiveSection } from './hooks/useActiveSection'
-import { programmingWorks, slugify } from './constants/worksData'
+import { useContent } from './hooks/useContent'
 
 const SECTION_IDS = ['hero', 'about', 'works', 'timeline', 'skills', 'contact']
+// Never hold the loading screen longer than this waiting on content
+const CONTENT_TIMEOUT = 8000
 
 // Project detail pages live at #/works/<slug> so back, refresh and sharing all work
-const workFromHash = () => {
-  const slug = window.location.hash.match(/^#\/works\/(.+)$/)?.[1]
-  return slug ? (programmingWorks.find((w) => slugify(w.title) === slug) ?? null) : null
-}
+const slugFromHash = () => window.location.hash.match(/^#\/works\/(.+)$/)?.[1] ?? null
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
-  const [fadeOut, setFadeOut] = useState(false)
   const [columnsReveal, setColumnsReveal] = useState(false)
+  const [introDone, setIntroDone] = useState(false)
+  const [contentWaitOver, setContentWaitOver] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [worksTab, setWorksTab] = useState('programming')
-  const [selectedWork, setSelectedWork] = useState(workFromHash)
+  const [selectedSlug, setSelectedSlug] = useState(slugFromHash)
   const openedFromList = useRef(false)
-  const wasOpen = useRef(selectedWork !== null)
+  const wasOpen = useRef(false)
   const { theme, toggle: toggleTheme } = useTheme()
   const activeSection = useActiveSection(SECTION_IDS)
+  const content = useContent()
+  const selectedWork = content.projects.find((w) => w.slug === selectedSlug) ?? null
 
   // Follow the URL (covers the browser back/forward buttons too)
   useEffect(() => {
-    const onHashChange = () => setSelectedWork(workFromHash())
+    const onHashChange = () => setSelectedSlug(slugFromHash())
     window.addEventListener('hashchange', onHashChange)
     return () => window.removeEventListener('hashchange', onHashChange)
   }, [])
@@ -52,7 +54,7 @@ function App() {
 
   const openWork = (work) => {
     openedFromList.current = true
-    window.location.hash = `/works/${slugify(work.title)}`
+    window.location.hash = `/works/${work.slug}`
   }
 
   const closeWork = () => {
@@ -63,19 +65,33 @@ function App() {
     } else {
       // Landed directly on a shared link: drop the hash and show the page
       window.history.replaceState(null, '', window.location.pathname + window.location.search)
-      setSelectedWork(null)
+      setSelectedSlug(null)
     }
   }
 
   useEffect(() => {
     const minDisplay = new Promise((resolve) => setTimeout(resolve, 2400))
     const fontsReady = document.fonts.ready
-    Promise.all([minDisplay, fontsReady]).then(() => {
-      setFadeOut(true)
-      setTimeout(() => setColumnsReveal(true), 800)
-      setTimeout(() => setIsLoading(false), 2200)
-    })
+    Promise.all([minDisplay, fontsReady]).then(() => setIntroDone(true))
   }, [])
+
+  // Leave the loading screen once the intro has played and content has arrived (or timed out)
+  useEffect(() => {
+    const timer = setTimeout(() => setContentWaitOver(true), CONTENT_TIMEOUT)
+    return () => clearTimeout(timer)
+  }, [])
+  const contentSettled = content.status !== 'loading' || contentWaitOver
+  const fadeOut = introDone && contentSettled
+
+  useEffect(() => {
+    if (!fadeOut) return
+    const reveal = setTimeout(() => setColumnsReveal(true), 800)
+    const done = setTimeout(() => setIsLoading(false), 2200)
+    return () => {
+      clearTimeout(reveal)
+      clearTimeout(done)
+    }
+  }, [fadeOut])
 
   return (
     <>
@@ -96,14 +112,17 @@ function App() {
       <div className="main-page bg-(--color-bg)" style={{ display: selectedWork ? 'none' : '' }}>
         <div id="home" style={{ position: 'absolute', top: 0 }} />
         <Hero />
-        <About />
+        <About projectCount={content.projects.length} trackCount={content.music.length} />
         <Works
+          projects={content.projects}
+          music={content.music}
+          loadFailed={content.status === 'error'}
           worksTab={worksTab}
           onTabChange={setWorksTab}
           onSelectWork={openWork}
         />
-        <Timeline />
-        <Skills />
+        <Timeline journey={content.journey} />
+        <Skills party={content.skills.party} box={content.skills.box} boxCount={content.skills.boxCount} />
         <Contact />
         <ErrorBoundary>
           {/* <GanymedeChat /> */}
