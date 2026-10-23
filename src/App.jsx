@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import LoadingScreen from './components/LoadingScreen'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -11,6 +11,7 @@ import Footer from './components/Footer'
 import WorkDetail from './components/WorkDetail'
 import ErrorBoundary from './components/ErrorBoundary'
 import Cursor from './components/Cursor'
+import Terminal from './components/Terminal'
 import { useTheme } from './hooks/useTheme'
 import { useActiveSection } from './hooks/useActiveSection'
 import { useContent } from './hooks/useContent'
@@ -30,6 +31,7 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [worksTab, setWorksTab] = useState('programming')
   const [selectedSlug, setSelectedSlug] = useState(slugFromHash)
+  const [terminalOpen, setTerminalOpen] = useState(false)
   const openedFromList = useRef(false)
   const wasOpen = useRef(false)
   const { theme, toggle: toggleTheme } = useTheme()
@@ -66,6 +68,30 @@ function App() {
       window.history.replaceState(null, '', window.location.pathname + window.location.search)
       setSelectedSlug(null)
     }
+  }
+
+  const openTerminal = useCallback(() => setTerminalOpen(true), [])
+  const closeTerminal = useCallback(() => setTerminalOpen(false), [])
+
+  // Scroll to a section, leaving a project page first if one is open
+  const goTo = (id) => {
+    if (selectedWork) closeWork()
+    setTimeout(() => {
+      if (id === 'home') window.scrollTo({ top: 0, behavior: 'smooth' })
+      else document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    }, selectedWork ? 100 : 0)
+  }
+
+  const terminalCtx = {
+    content,
+    theme,
+    toggleTheme,
+    goTo,
+    openWork,
+    showMusic: () => {
+      setWorksTab('music')
+      goTo('works')
+    },
   }
 
   useEffect(() => {
@@ -105,6 +131,7 @@ function App() {
           theme={theme}
           onToggleTheme={toggleTheme}
           activeSection={activeSection}
+          onOpenTerminal={openTerminal}
         />
       )}
 
@@ -131,6 +158,7 @@ function App() {
           <WorkDetail work={selectedWork} onBack={closeWork} />
         </ErrorBoundary>
       </div>
+      <Terminal open={terminalOpen} onOpen={openTerminal} onClose={closeTerminal} ctx={terminalCtx} />
       <Cursor />
     </>
   )

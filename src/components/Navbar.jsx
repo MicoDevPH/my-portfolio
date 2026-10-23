@@ -9,7 +9,7 @@ const NAV_ITEMS = [
   ['contact', 'Contact'],
 ]
 
-export default function Navbar({ menuOpen, onToggleMenu, theme, onToggleTheme, activeSection }) {
+export default function Navbar({ menuOpen, onToggleMenu, theme, onToggleTheme, activeSection, onOpenTerminal }) {
   const handleNav = (id) => {
     if (id === 'home') window.scrollTo({ top: 0, behavior: 'smooth' })
     else document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
@@ -57,6 +57,14 @@ export default function Navbar({ menuOpen, onToggleMenu, theme, onToggleTheme, a
         </ul>
 
         <div className="flex items-center gap-2 shrink-0">
+          <button
+            className="flex items-center justify-center w-10 h-10 border-[3px] border-(--color-ink) bg-(--color-surface) text-(--color-text) shadow-brutal-sm cursor-pointer nb-press font-pixel text-[10px]"
+            onClick={onOpenTerminal}
+            aria-label="Open terminal"
+            title="Terminal (~ or Ctrl+K)"
+          >
+            &gt;_
+          </button>
           <button
             className="flex items-center justify-center w-10 h-10 border-[3px] border-(--color-ink) bg-(--color-surface) text-(--color-text) shadow-brutal-sm cursor-pointer nb-press"
             onClick={onToggleTheme}
