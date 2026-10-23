@@ -1,7 +1,7 @@
 import Icon from './Icon'
 
 const SOCIAL_LINKS = [
-  { href: 'https://github.com/MicoDevPH', icon: 'github', label: 'GitHub' },
+  { href: 'https://github.com/miconakase', icon: 'github', label: 'GitHub' },
   { href: 'https://www.facebook.com/mics12345', icon: 'facebook', label: 'Facebook' },
   { href: 'https://www.instagram.com/itsmicssss_/', icon: 'instagram', label: 'Instagram' },
   { href: 'https://www.tiktok.com/@micodevph', icon: 'tiktok', label: 'TikTok' },

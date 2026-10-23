@@ -15,7 +15,7 @@ const SAMPLE_MESSAGES = [
 ]
 
 const SOCIAL_LINKS = [
-  { name: 'GitHub', href: 'https://github.com/MicoDevPH', icon: 'github', detail: 'Repositories & contributions' },
+  { name: 'GitHub', href: 'https://github.com/miconakase', icon: 'github', detail: 'Repositories & contributions' },
   { name: 'Facebook', href: 'https://www.facebook.com/mics12345', icon: 'facebook', detail: 'Updates & posts' },
   { name: 'Instagram', href: 'https://www.instagram.com/itsmicssss_/', icon: 'instagram', detail: 'Photos & stories' },
   { name: 'TikTok', href: 'https://www.tiktok.com/@micodevph', icon: 'tiktok', detail: 'Short videos & clips' },
